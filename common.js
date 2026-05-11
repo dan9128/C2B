@@ -10,8 +10,8 @@ const C2B_NAV_ITEMS = [
   { key:'structure',  href:'C2B_STRUCTURE.html',   label:'체인 구조' },
   { key:'p2',         href:'C2B_P2.html',          label:'Chain → Belt 전환단계' },
   { key:'competitor', href:'C2B_COMPETITOR.html',  label:'C2B 경쟁사 현황' },
-  { key:'p3',         href:'C2B_P3.html',          label:'타겟시장 분석' },
-  { key:'p4',         href:'C2B_P4.html',          label:'DRB 유통망 실차 테스트' },
+  { key:'p3',         href:'C2B_P3.html',          label:'시장 분석' },
+  { key:'p4',         href:'C2B_P4.html',          label:'향후 진행 방향' },
   { key:'p5',         href:'C2B_P5.html',          label:'실차 테스트 진행사항' }
 ];
 
