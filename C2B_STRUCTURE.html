@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRB C2B — 체인 구조</title>
+<link href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+<style>
+/* === Structure 페이지 전용 === */
+.diagram-card{margin-bottom:14px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(180deg,#FFF8F8 0%,#FFFFFF 100%);overflow:hidden}
+.diagram-head{padding:14px 16px 10px;border-bottom:1px solid #F4DADD;background:var(--drb-red-soft)}
+.diagram-head b{display:block;font-size:14px;line-height:1.5;color:var(--drb-red-deep)}
+.diagram-head span{display:block;font-size:12px;color:var(--text2);line-height:1.6;margin-top:2px}
+.diagram-box{padding:16px}
+.diagram-svg{width:100%;height:auto;display:block}
+.diagram-cap{padding:0 16px 16px;font-size:12px;color:var(--text2);line-height:1.7}
+
+.part-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.part-card{padding:14px 14px 12px;border-radius:14px;border:1px solid var(--border);background:#fff;transition:all .18s ease}
+.part-card:hover{box-shadow:0 8px 22px rgba(227,29,56,.05);border-color:#E8C8CD;transform:translateY(-1px)}
+.part-card h4{font-size:13px;font-weight:800;line-height:1.45;margin-bottom:4px;color:var(--text)}
+.part-card p{font-size:12px;color:var(--text2);line-height:1.7}
+
+@media (max-width:980px){.part-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:680px){.part-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-active="structure">
+
+<button class="sb-btn shifted" onclick="togSB()">
+  <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+
+<aside class="sidebar" id="sb"></aside>
+
+<div class="main" id="mn">
+
+  <div class="pg-t">
+    <div class="num">02 · STRUCTURE</div>
+    <h2>체인 구조</h2>
+    <p>핀–부시 관절부가 윤활·마모·소음의 핵심 부담점</p>
+  </div>
+
+  <!-- 구조 다이어그램 -->
+  <div class="sec">
+    <div class="sec-h"><div class="sec-i" style="margin-left:0"><h3>Roller Chain 구조와 하중 전달</h3><div class="sub">플레이트가 링크를 유지하고, 롤러·부시·핀이 관절부를 형성</div></div></div>
+    <div class="sec-b">
+      <div class="diagram-card">
+        <div class="diagram-head"><b>체인 구조 설명도</b><span>플레이트가 인장 하중을 지지하고, 핀–부시 관절부가 상대운동을 담당</span></div>
+        <div class="diagram-box">
+          <svg class="diagram-svg" viewBox="0 0 980 360" role="img" aria-label="체인 구조 설명도">
+            <defs>
+              <linearGradient id="plateFill" x1="0" x2="1"><stop offset="0%" stop-color="#FCEBED"/><stop offset="100%" stop-color="#F9D7DD"/></linearGradient>
+              <linearGradient id="rollerFill" x1="0" x2="1"><stop offset="0%" stop-color="#B3B6BA"/><stop offset="100%" stop-color="#D7D9DD"/></linearGradient>
+              <linearGradient id="pinFill" x1="0" x2="1"><stop offset="0%" stop-color="#8C7750"/><stop offset="100%" stop-color="#C1A978"/></linearGradient>
+              <marker id="arrowGray" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#706F72"/></marker>
+            </defs>
+
+            <rect x="90" y="90" width="800" height="26" rx="13" fill="url(#plateFill)" stroke="#E8C8CD"/>
+            <rect x="90" y="244" width="800" height="26" rx="13" fill="url(#plateFill)" stroke="#E8C8CD"/>
+
+            <g>
+              <g transform="translate(170,180)">
+                <circle r="44" fill="#EFF1F4" stroke="#D8DCE2"/>
+                <circle r="27" fill="url(#rollerFill)" stroke="#B3B6BA"/>
+                <circle r="9" fill="url(#pinFill)" stroke="#8C7750"/>
+              </g>
+              <g transform="translate(330,180)">
+                <circle r="44" fill="#EFF1F4" stroke="#D8DCE2"/>
+                <circle r="27" fill="url(#rollerFill)" stroke="#B3B6BA"/>
+                <circle r="9" fill="url(#pinFill)" stroke="#8C7750"/>
+              </g>
+              <g transform="translate(490,180)">
+                <circle r="44" fill="#EFF1F4" stroke="#D8DCE2"/>
+                <circle r="27" fill="url(#rollerFill)" stroke="#B3B6BA"/>
+                <circle r="9" fill="url(#pinFill)" stroke="#8C7750"/>
+              </g>
+              <g transform="translate(650,180)">
+                <circle r="44" fill="#EFF1F4" stroke="#D8DCE2"/>
+                <circle r="27" fill="url(#rollerFill)" stroke="#B3B6BA"/>
+                <circle r="9" fill="url(#pinFill)" stroke="#8C7750"/>
+              </g>
+              <g transform="translate(810,180)">
+                <circle r="44" fill="#EFF1F4" stroke="#D8DCE2"/>
+                <circle r="27" fill="url(#rollerFill)" stroke="#B3B6BA"/>
+                <circle r="9" fill="url(#pinFill)" stroke="#8C7750"/>
+              </g>
+            </g>
+
+            <line x1="240" y1="40" x2="240" y2="88" stroke="#706F72" stroke-width="2" marker-end="url(#arrowGray)"/>
+            <text x="240" y="28" text-anchor="middle" font-size="15" font-weight="800" fill="#4E4D50">Plate (플레이트)</text>
+            <text x="240" y="48" text-anchor="middle" font-size="12" fill="#7F858C">링크 강성 유지, 인장 하중 전달</text>
+
+            <line x1="128" y1="318" x2="160" y2="224" stroke="#706F72" stroke-width="2" marker-end="url(#arrowGray)"/>
+            <text x="72" y="320" font-size="15" font-weight="800" fill="#4E4D50">Roller</text>
+            <text x="72" y="340" font-size="12" fill="#7F858C">스프로킷 치와 접촉</text>
+
+            <line x1="486" y1="318" x2="490" y2="224" stroke="#706F72" stroke-width="2" marker-end="url(#arrowGray)"/>
+            <text x="442" y="320" font-size="15" font-weight="800" fill="#4E4D50">Bush</text>
+            <text x="428" y="340" font-size="12" fill="#7F858C">핀과 함께 관절 형성</text>
+
+            <line x1="754" y1="318" x2="810" y2="188" stroke="#706F72" stroke-width="2" marker-end="url(#arrowGray)"/>
+            <text x="744" y="320" font-size="15" font-weight="800" fill="#4E4D50">Pin</text>
+            <text x="714" y="340" font-size="12" fill="#7F858C">관절 중심축, 반복 마찰</text>
+          </svg>
+        </div>
+        <div class="diagram-cap">체인은 <b>플레이트</b>가 전체 인장 하중을 잡고, <b>롤러</b>가 스프로킷과 맞물리며, <b>핀–부시</b>가 링크 간 상대운동을 허용합니다. 이때 바로 그 관절부가 윤활, 마모, 소음, 신장 관리의 핵심 부담점이 됩니다.</div>
+      </div>
+
+      <div class="part-grid">
+        <div class="part-card"><h4>Plate</h4><p>체인의 뼈대 역할. 링크를 묶고 전체 인장 하중을 지지합니다.</p></div>
+        <div class="part-card"><h4>Roller</h4><p>스프로킷 치와 접촉하며 구동력을 전달하고 접촉 마찰을 분산합니다.</p></div>
+        <div class="part-card"><h4>Bush</h4><p>핀과 조합되어 회전 관절을 만들며, 반복 마찰이 누적되는 핵심 부품입니다.</p></div>
+        <div class="part-card"><h4>Pin</h4><p>링크를 축으로 연결합니다. 마모가 진행되면 체인 신장과 정렬 문제가 커집니다.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="common.js" defer></script>
+</body>
+</html>
