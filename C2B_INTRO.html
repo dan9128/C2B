@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>팀C2B 소개 — DRB 팀C2B</title>
+<link href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+:root{
+  --red:#E31D38;--red-deep:#B7182E;--red-soft:#FDF0F1;
+  --gray:#706F72;--gray-deep:#4E4D50;--gray-soft:#F5F5F4;
+  --gold:#8C7750;--gold-soft:#F7F3EC;
+  --text:#1A1A1A;--text2:#555;--text3:#999;
+  --border:#E8E8E6;--card:#fff;--bg:#F8F7F5;
+  --sidebar-w:232px;
+  --r:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px;word-break:keep-all}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--card);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s}
+.sidebar.closed{transform:translateX(calc(var(--sidebar-w)*-1))}
+.sb-head{padding:28px 22px 20px;border-bottom:1px solid var(--border)}
+.sb-logo-wrap{text-decoration:none;display:block}
+.sb-logo{font-size:18px;font-weight:900;letter-spacing:-.04em;color:var(--red);transition:opacity .15s}
+.sb-logo-wrap:hover .sb-logo{opacity:.7}
+.sb-logo span{color:var(--gray)}
+.sb-sub{font-size:11px;color:var(--text3);margin-top:4px}
+.sb-nav{flex:1;overflow-y:auto;padding:20px 14px}
+.nav-label{font-size:10px;font-weight:800;color:#ccc;letter-spacing:.1em;text-transform:uppercase;padding:0 10px;margin-bottom:8px}
+.nav-a{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;transition:all .15s;margin-bottom:3px}
+.nav-a:hover{background:var(--gray-soft);color:var(--text)}
+.nav-a.active{background:var(--red-soft);color:var(--red-deep);font-weight:800}
+.nav-n{width:22px;height:22px;border-radius:7px;background:var(--gray-soft);color:var(--text3);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-a.active .nav-n{background:var(--red);color:#fff}
+
+.sb-btn{position:fixed;top:16px;left:16px;z-index:200;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:left .3s}
+.sb-btn.sh{left:calc(var(--sidebar-w) + 14px)}
+.sb-btn svg{width:16px;height:16px;stroke:var(--gray);stroke-width:2;fill:none;stroke-linecap:round}
+
+.main{max-width:960px;margin:0 auto;padding:40px 28px 80px calc(var(--sidebar-w) + 28px);transition:padding-left .3s}
+.main.exp{padding-left:28px}
+
+/* LAYOUT */
+.pg{margin-bottom:10px}
+.pg-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pg h1{font-size:30px;font-weight:800;letter-spacing:-.04em;color:var(--text);line-height:1.25;margin-bottom:6px}
+
+.divider{height:1px;background:var(--border);margin:32px 0}
+
+/* SECTION */
+.sec{margin-bottom:32px}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:8px}
+.st{display:grid;grid-template-columns:80px 1fr;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--card);transition:box-shadow .15s}
+.st:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.st-left{background:var(--gray-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:20px 0;border-right:1px solid var(--border)}
+.st-n{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--text3)}
+.st-icon{font-size:22px}
+.st.hi .st-left{background:var(--red-soft);border-right-color:#F5D0D5}
+.st.hi .st-n{color:var(--red)}
+.st-body{padding:20px 24px}
+.st-tag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.st.hi .st-tag{color:var(--red)}
+.st-body h3{font-size:15px;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1.3;margin-bottom:5px}
+.st-body p{font-size:13px;color:var(--text2);line-height:1.72}
+.st-body p b{color:var(--text);font-weight:700}
+
+/* IDENTITY CARDS */
+.id-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.id-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 18px;transition:box-shadow .15s}
+.id-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.id-k{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.id-v{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.3}
+.id-d{font-size:12px;color:var(--text3);line-height:1.65}
+
+/* STRENGTH */
+.str-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.str-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px 22px;transition:box-shadow .15s;border-top:3px solid transparent}
+.str-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.str-card.r{border-top-color:var(--red)}
+.str-card.g{border-top-color:var(--gold)}
+.str-sk{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.str-card.r .str-sk{color:var(--red)}
+.str-card.g .str-sk{color:var(--gold)}
+.str-card h4{font-size:15px;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1.3;margin-bottom:10px}
+.str-card p{font-size:13px;color:var(--text2);line-height:1.72}
+.str-card p b{color:var(--text);font-weight:700}
+
+/* CLOSING */
+.closing{border-top:1px solid var(--border);padding-top:28px;text-align:center}
+.closing p{font-size:14px;color:var(--text3);line-height:1.9;font-style:italic}
+
+@media(max-width:860px){
+  .main{padding-left:28px}.sidebar{transform:translateX(calc(var(--sidebar-w)*-1))}
+  .sb-btn,.sb-btn.sh{left:16px}
+}
+@media(max-width:640px){
+  .id-row,.str-row{grid-template-columns:1fr}
+  .st{grid-template-columns:60px 1fr}
+}
+</style>
+</head>
+<body data-hh-mode="click">
+<button class="sb-btn sh" id="sbb" onclick="tog()">
+  <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+</button>
+<aside class="sidebar" id="sb">
+  <div class="sb-head">
+    <a href="C2B_COVER.html" class="sb-logo-wrap">
+      <div class="sb-logo">DRB <span>팀C2B</span></div>
+    </a>
+    <div class="sb-sub">Chain to Belt 전환 프로젝트</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="nav-label">목차</div>
+    <a class="nav-a active" href="C2B_INTRO.html"><span class="nav-n">1</span>팀C2B 소개</a>
+    <a class="nav-a" href="C2B_INTERLUDE.html"><span class="nav-n">2</span>팀C2B 활동내역</a>
+    <a class="nav-a" href="C2B_MAIN.html"><span class="nav-n">3</span>팀C2B 주요내용</a>
+    <a class="nav-a" href="C2B_OUTRO.html"><span class="nav-n">4</span>마무리</a>
+  </nav>
+</aside>
+
+<div class="main" id="mn" data-hs="">
+
+  <div class="pg">
+    <div class="pg-label"><br></div>
+    <h1>팀C2B 소개</h1>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec">
+    <div class="sec-label">팀C2B의 시작</div>
+    <div class="steps">
+
+      <div class="st" style="color: rgb(112, 111, 114);">
+        <div class="st-left">
+          <div class="st-n">01</div>
+          <div class="st-icon">🔬</div>
+        </div>
+        <div class="st-body">
+          <div class="st-tag">Future Labs와의 연결</div>
+          <h3>AFL 이 열어준 가능성</h3>
+          <p>지게차를 깊이 들여다보는 과정에서 
+하나의 질문이 생겼습니다.&nbsp;</p><p>지게차 마스트 체인은 반복 하중에 조금씩 늘어나는데,
+이를 벨트로 바꾸면 어떨까?</p>
+        </div>
+      </div>
+
+      <div class="st hi">
+        <div class="st-left">
+          <div class="st-n">02</div>
+          <div class="st-icon">💡</div>
+        </div>
+        <div class="st-body" style="color: rgb(112, 111, 114);">
+          <div class="st-tag">비즈니스 팀으로 확장</div>
+          <h3>질문에서 시작된 비즈니스 도전</h3>
+          <p>DRB의 고유 기술로 새로운 시장을 연구하기 시작했습니다.&nbsp;</p><div style="font-size: 13px;">하중 지지와 반복 승강, 그 자리를 Carbon PU 벨트로 대체할 수 있다는 가설이었습니다.</div><p></p>
+        </div>
+      </div>
+
+      <div class="st">
+        <div class="st-left">
+          <div class="st-n">03</div>
+          <div class="st-icon">🚀</div>
+        </div>
+        <div class="st-body" style="font-size: 13px; color: rgb(112, 111, 114);">
+          <div class="st-tag">팀C2B의 시작</div>
+          <h3>공감한 사람들의 자발적 참여</h3>
+          <p>질문에 공감한 사람들이 스스로 모였습니다.</p><div>현장의 질문에서 탄생한 팀입니다.</div><div>Chain 시장을 탐구하고 Belt 진입을 실현합니다.</div><p></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">팀 정체성</div>
+    <div class="id-row">
+      <div class="id-card">
+        <div class="id-k">발의 방식</div>
+        <div class="id-v">Future Labs 출발</div>
+        <div class="id-d">Future Labs 연구에서 시작된 현장 기반 비즈니스 문제 정의</div>
+      </div>
+      <div class="id-card">
+        <div class="id-k">팀 성격</div>
+        <div class="id-v">비즈니스 팀C2B</div>
+        <div class="id-d">사업화 가능성을 직접 검증하는 자발적 내부 비즈니스팀</div>
+      </div>
+      <div class="id-card">
+        <div class="id-k">최종 목표</div>
+        <div class="id-v">C2B 사업화</div>
+        <div class="id-d">체인 → 벨트 전환 시장을 DRB의 신규 매출원으로</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">구조적 강점</div>
+    <div class="str-row">
+      <div class="str-card r">
+        <div class="str-sk">사업화 근거리</div>
+        <h4>사업화에 가까이 있습니다</h4>
+        <p>막연한 트렌드가 아닌 <b>특정 필요</b>에서 출발했습니다. 경쟁사 분석, 실차 테스트, 채널 구축이 진행 중입니다.</p>
+      </div>
+      <div class="str-card g">
+        <div class="str-sk">벨트사업부문 연결</div>
+        <h4>우리의 기술이 새로운 시장에 연결됩니다</h4>
+        <p><b><span style="color: rgb(85, 85, 85); font-weight: 400;">생산 역량과 품질 기반이 이미 확보되어 있습니다.</span></b>&nbsp;</p><p>DRB가 체인 시장에 접근합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing">
+    <p>현장에서 가능성을 발견하고, 우리의 기술로 답에 다가갑니다.</p>
+  </div>
+
+</div>
+
+<script>
+function tog(){
+  const s=document.getElementById('sb'),m=document.getElementById('mn'),b=document.getElementById('sbb');
+  s.classList.toggle('closed');m.classList.toggle('exp');b.classList.toggle('sh');
+}
+</script>
+
+
+</body></html>

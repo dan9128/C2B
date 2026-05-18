@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주요 활동 — DRB C2B</title>
+<link href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+:root{
+  --red:#E31D38;--red-deep:#B7182E;--red-soft:#FDF0F1;
+  --gray:#706F72;--gray-soft:#F5F5F4;
+  --gold:#8C7750;--gold-soft:#F7F3EC;
+  --text:#1A1A1A;--text2:#555;--text3:#999;--text4:#BDBBB9;
+  --border:#E8E8E6;--card:#fff;--bg:#FAFAF8;
+  --sidebar-w:232px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;word-break:keep-all;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--card);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s}
+.sidebar.closed{transform:translateX(calc(var(--sidebar-w)*-1))}
+.sb-head{padding:28px 22px 20px;border-bottom:1px solid var(--border)}
+.sb-logo-wrap{text-decoration:none;display:block}
+.sb-logo{font-size:18px;font-weight:900;letter-spacing:-.04em;color:var(--red);transition:opacity .15s}
+.sb-logo-wrap:hover .sb-logo{opacity:.7}
+.sb-logo span{color:var(--gray)}
+.sb-sub{font-size:11px;color:var(--text3);margin-top:4px}
+.sb-nav{flex:1;overflow-y:auto;padding:20px 14px}
+.nav-label{font-size:10px;font-weight:800;color:#ccc;letter-spacing:.1em;text-transform:uppercase;padding:0 10px;margin-bottom:8px}
+.nav-a{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;transition:all .15s;margin-bottom:3px}
+.nav-a:hover{background:var(--gray-soft);color:var(--text)}
+.nav-a.active{background:var(--red-soft);color:var(--red);font-weight:800}
+.nav-n{width:22px;height:22px;border-radius:7px;background:var(--gray-soft);color:var(--text3);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-a.active .nav-n{background:var(--red);color:#fff}
+.sb-btn{position:fixed;top:16px;left:16px;z-index:200;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:left .3s}
+.sb-btn.sh{left:calc(var(--sidebar-w) + 14px)}
+.sb-btn svg{width:16px;height:16px;stroke:var(--gray);stroke-width:2;fill:none;stroke-linecap:round}
+
+/* MAIN */
+.main{padding:36px 40px 32px calc(var(--sidebar-w) + 40px);transition:padding-left .3s;min-height:100vh;display:flex;flex-direction:column;position:relative}
+.main.exp{padding-left:40px}
+
+/* HEADER */
+.hdr{flex-shrink:0;margin-bottom:28px;animation:slideDown .55s cubic-bezier(.16,1,.3,1) both}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.pg-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.pg-eyebrow::after{content:'';flex:1;max-width:160px;height:1px;background:var(--border)}
+.pg-title{font-size:30px;font-weight:800;letter-spacing:-.045em;color:var(--text);line-height:1.15;margin-bottom:6px}
+.pg-sub{font-size:13.5px;color:var(--text3);line-height:1.55}
+
+/* GRID */
+.grid{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:14px;
+  align-content:start;
+}
+
+/* 3 + 2 centered layout */
+.card:nth-child(1){grid-column:1 / span 4}
+.card:nth-child(2){grid-column:5 / span 4}
+.card:nth-child(3){grid-column:9 / span 4}
+.card:nth-child(4){grid-column:3 / span 4}
+.card:nth-child(5){grid-column:7 / span 4}
+
+/* CARD */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px 22px 22px;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+  min-height:200px;
+  transition:transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s, border-color .25s;
+  animation:cardIn .55s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* Stagger */
+.card:nth-child(1){animation-delay:.15s}
+.card:nth-child(2){animation-delay:.22s}
+.card:nth-child(3){animation-delay:.29s}
+.card:nth-child(4){animation-delay:.36s}
+.card:nth-child(5){animation-delay:.43s}
+
+.card:hover{
+  transform:translateY(-3px);
+  border-color:#D0CECC;
+  box-shadow:0 12px 32px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.04);
+}
+
+/* Red accent on top, grows on hover */
+.card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--red);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
+}
+.card:hover::before{transform:scaleX(1)}
+
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.card-num{
+  font-size:10.5px;font-weight:900;letter-spacing:.16em;
+  color:var(--red);
+}
+.card-tag{
+  font-size:9.5px;font-weight:700;letter-spacing:.06em;
+  color:var(--text4);text-transform:uppercase;
+}
+
+.card-title{
+  font-size:18px;font-weight:800;letter-spacing:-.03em;
+  color:var(--text);line-height:1.28;
+  margin-bottom:10px;
+}
+
+.card-brief{
+  font-size:13px;color:var(--text2);line-height:1.65;
+  flex:1;
+}
+
+.card-cta{
+  margin-top:14px;
+  display:flex;align-items:center;gap:6px;
+  font-size:11.5px;font-weight:700;letter-spacing:.02em;
+  color:var(--text3);
+  transition:color .2s;
+}
+.card:hover .card-cta{color:var(--red)}
+.card-cta svg{
+  width:13px;height:13px;
+  stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .2s;
+}
+.card:hover .card-cta svg{transform:translateX(3px)}
+
+/* ── POPUP ── */
+.popup{
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.94);
+  width:min(490px,86%);
+  background:var(--card);border:1px solid var(--border);border-radius:22px;
+  padding:0;
+  box-shadow:0 28px 72px rgba(0,0,0,.18),0 6px 20px rgba(0,0,0,.06);
+  opacity:0;pointer-events:none;
+  transition:opacity .3s,transform .35s cubic-bezier(.16,1,.3,1);
+  z-index:300;overflow:hidden;
+}
+.popup.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.popup::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--red-deep));
+  opacity:0;transition:opacity .3s;
+}
+.popup.show::before{opacity:1}
+
+.popup-head{padding:24px 28px 18px;border-bottom:1px solid var(--border);position:relative}
+.pop-close{
+  position:absolute;top:18px;right:18px;
+  width:32px;height:32px;border-radius:10px;
+  background:var(--gray-soft);border:1px solid var(--border);
+  cursor:pointer;font-size:15px;color:var(--text3);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.pop-close:hover{background:var(--red-soft);color:var(--red);border-color:rgba(227,29,56,.25)}
+.pop-num{display:inline-block;padding:3px 10px;border-radius:6px;background:var(--red-soft);color:var(--red);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.pop-title{font-size:22px;font-weight:800;letter-spacing:-.035em;color:var(--text);line-height:1.2}
+
+.popup-body{padding:20px 28px 22px}
+.pop-facts{list-style:none;display:flex;flex-direction:column;gap:11px}
+.pop-facts li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--text2);line-height:1.7}
+.pop-facts li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:8px}
+.pop-facts b{color:var(--text);font-weight:700}
+
+.popup-foot{
+  padding:14px 28px;background:#FAFAF8;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.pop-counter{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.04em}
+.pop-counter b{color:var(--text);font-weight:900;font-size:13px}
+.pop-nav{display:flex;gap:8px}
+.pop-nav button{
+  width:34px;height:34px;border-radius:10px;
+  background:var(--card);border:1px solid var(--border);
+  cursor:pointer;color:var(--text2);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.pop-nav button:hover:not(:disabled){background:var(--red);border-color:var(--red);color:#fff}
+.pop-nav button:disabled{opacity:.3;cursor:not-allowed}
+.pop-nav button svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round}
+
+/* Backdrop */
+.backdrop{position:fixed;inset:0;background:rgba(20,20,22,.4);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:250}
+.backdrop.show{opacity:1;pointer-events:auto}
+
+/* Keyboard hint */
+.kbd-hint{
+  position:fixed;bottom:18px;right:24px;z-index:5;
+  font-size:10px;color:var(--text3);letter-spacing:.04em;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.7);backdrop-filter:blur(8px);
+  border:1px solid var(--border);border-radius:999px;padding:6px 14px;
+}
+.kbd{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;background:var(--card);font-size:9.5px;font-weight:700;color:var(--text2)}
+
+@media(max-width:1100px){
+  .grid{grid-template-columns:repeat(6,1fr)}
+  .card:nth-child(1){grid-column:1 / span 3}
+  .card:nth-child(2){grid-column:4 / span 3}
+  .card:nth-child(3){grid-column:1 / span 3}
+  .card:nth-child(4){grid-column:4 / span 3}
+  .card:nth-child(5){grid-column:2 / span 4}
+}
+@media(max-width:860px){.main{padding-left:40px}.sidebar{transform:translateX(calc(var(--sidebar-w)*-1))}.sb-btn,.sb-btn.sh{left:16px}}
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr;gap:10px}
+  .card,.card:nth-child(n){grid-column:1}
+}
+</style>
+</head>
+<body data-hh-mode="direct">
+<button class="sb-btn sh" id="sbb" onclick="tog()">
+  <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+</button>
+<aside class="sidebar" id="sb">
+  <div class="sb-head">
+    <a href="C2B_COVER.html" class="sb-logo-wrap">
+      <div class="sb-logo">DRB <span>팀C2B</span></div>
+    </a>
+    <div class="sb-sub">Chain to Belt 전환 프로젝트</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="nav-label">목차</div>
+    <a class="nav-a" href="C2B_INTRO.html"><span class="nav-n">1</span>팀C2B 소개</a>
+    <a class="nav-a" href="C2B_INTERLUDE.html"><span class="nav-n">2</span>팀C2B 활동내역</a>
+    <a class="nav-a active" href="C2B_MAIN.html"><span class="nav-n">3</span>팀C2B 주요내용</a>
+    <a class="nav-a" href="C2B_OUTRO.html"><span class="nav-n">4</span>마무리</a>
+  </nav>
+</aside>
+
+<div class="main" id="mn">
+
+  <div class="hdr">
+    <div class="pg-eyebrow">주요내용 · Activities</div>
+    <h1 class="pg-title">팀C2B 주요내용</h1>
+    <p class="pg-sub"><br></p>
+  </div>
+
+  <div class="grid" id="grid" data-hs="">
+    <div class="card" onclick="clickCard('market')">
+      <div class="card-top">
+        <span class="card-num">01</span>
+        <span class="card-tag">Market</span>
+      </div>
+      <h3 class="card-title">체인 시장 분석</h3>
+      <p class="card-brief">국내 산업용 체인 시장 규모와 제조사 분석</p>
+      <div class="card-cta">
+        상세 보기
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+      </div>
+    </div>
+  
+    <div class="card" onclick="clickCard('structure')">
+      <div class="card-top">
+        <span class="card-num">02</span>
+        <span class="card-tag">Structure</span>
+      </div>
+      <h3 class="card-title">체인 구조 이해</h3>
+      <p class="card-brief">Roller Chain 구성·신장 메커니즘과 전환 검토</p>
+      <div class="card-cta">
+        상세 보기
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+      </div>
+    </div>
+  
+    <div class="card" onclick="clickCard('competitor')">
+      <div class="card-top">
+        <span class="card-num">03</span>
+        <span class="card-tag">Competitor</span>
+      </div>
+      <h3 class="card-title">경쟁사 분석</h3>
+      <p class="card-brief">글로벌 3개사 비교</p>
+      <div class="card-cta">
+        상세 보기
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+      </div>
+    </div>
+  
+    <div class="card" onclick="clickCard('analysis')">
+      <div class="card-top">
+        <span class="card-num">04</span>
+        <span class="card-tag">Analysis</span>
+      </div>
+      <h3 class="card-title">전환 가능성 분석</h3>
+      <p class="card-brief">체인 타입별 전환 적합도 평가</p>
+      <div class="card-cta">
+        상세 보기
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+      </div>
+    </div>
+  
+    <div class="card" onclick="clickCard('test')">
+      <div class="card-top">
+        <span class="card-num">05</span>
+        <span class="card-tag">Field Test</span>
+      </div>
+      <h3 class="card-title">실차 테스트</h3>
+      <p class="card-brief">DRB 내부 실차 테스트 진행</p>
+      <div class="card-cta">
+        상세 보기
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="kbd-hint">
+    <span class="kbd">←</span><span class="kbd">→</span> 이동 · <span class="kbd">Esc</span> 닫기
+  </div>
+
+  <div class="backdrop" id="backdrop" onclick="closePopup()"></div>
+
+  <div class="popup" id="popup">
+    <div class="popup-head">
+      <button class="pop-close" onclick="closePopup()">✕</button>
+      <span class="pop-num" id="pNum">01 · Market</span>
+      <div class="pop-title" id="pTitle">체인 시장 분석</div>
+    </div>
+    <div class="popup-body">
+      <ul class="pop-facts" id="pFacts"><li><span>국내 전체 시장 규모 <b>1,300~1,800억 원</b> 추정</span></li><li><span><b>동보·대동·동양</b> 3사가 국내 제조 시장 99% 점유</span></li><li><span>롤러체인 55~62%, 리프트체인 18~24%, 컨베어체인 10~15%</span></li></ul>
+    </div>
+    <div class="popup-foot">
+      <div class="pop-counter"><b id="pCur">1</b> / 5</div>
+      <div class="pop-nav">
+        <button id="pPrev" onclick="navPopup(-1)" aria-label="이전" disabled="">
+          <svg viewBox="0 0 16 16"><path d="M11 4l-5 4 5 4"></path></svg>
+        </button>
+        <button id="pNext" onclick="navPopup(1)" aria-label="다음">
+          <svg viewBox="0 0 16 16"><path d="M5 4l5 4-5 4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ACTS = [
+  { id:'market', num:'01', tag:'Market', title:'체인 시장 분석',
+    brief:'국내 산업용 체인 시장 규모와 제조사 구도 분석',
+    facts:[
+      '국내 전체 시장 규모 <b>1,300~1,800억 원</b> 추정',
+      '<b>동보·대동·동양</b> 3사가 국내 제조 시장 99% 점유',
+      '롤러체인 55~62%, 리프트체인 18~24%, 컨베어체인 10~15%',
+    ]},
+  { id:'structure', num:'02', tag:'Structure', title:'체인 구조 이해',
+    brief:'Roller Chain 구성·신장 메커니즘과 전환 검토 방법론',
+    facts:[
+      '4개 부품 — <b>플레이트·핀·부시·롤러</b>의 역할과 하중 메커니즘',
+      '핀·부시 마모 → 피치 늘어짐 → <b>신장률 2% 초과</b> 시 교체',
+      '동기벨트는 카본 코드로 <b>신장 없음</b>, 윤활 불필요',
+      '전환 5단계 — ① 기존 사양 파악 ② 환경 검토 ③ 벨트 사양 선정 ④ 풀리·기구 설계 검토 ⑤ 시제품 적용 확정',
+    ]},
+  { id:'competitor', num:'03', tag:'Competitor', title:'경쟁사 분석',
+    brief:'Gates, Continental 등 글로벌 C2B 6개사 비교',
+    facts:[
+      '직접 3사 — <b>Gates</b>(Poly Chain GT Carbon), <b>Continental</b>(Synchrochain), <b>Megadyne</b>',
+      '간접 3사 — Mitsuboshi, BANDO, Dayco',
+      '공통 메시지 — <b>무윤활·저소음·고토크</b>로 체인 대체 포지셔닝',
+    ]},
+  { id:'analysis', num:'04', tag:'Analysis', title:'전환 가능성 분석',
+    brief:'6개 체인 타입별 전환 적합도 평가',
+    facts:[
+      '이송용(Conveyor) — <b>전환 최우선</b>. 청결 환경에서 압도적 우세',
+      '소형 스태커·호이스트 — 안전 인증 필요하나 전환 가능',
+      '단기 공략 — <b>물류·포장 라인, 소형 스태커, 청결 제조환경</b>',
+    ]},
+  { id:'test', num:'05', tag:'Field Test', title:'실차 테스트',
+    brief:'스태커 3종 구성, 1.5톤 비교 검증 진행',
+    facts:[
+      '스태커 <b>3종 구성</b> — 체인 장착 / DRB 벨트 장착 / 체인+벨트 동시',
+      '실하중 <b>1.5톤 파렛트</b> 승강 조건으로 현장 성능 비교 검증',
+      '신장률 비교 데이터 확보 → <b>전환 근거 마련</b>',
+    ]},
+];
+
+function renderGrid(){
+  const g = document.getElementById('grid');
+  g.innerHTML = ACTS.map((a,i)=>`
+    <div class="card" onclick="clickCard('${a.id}')">
+      <div class="card-top">
+        <span class="card-num">${a.num}</span>
+        <span class="card-tag">${a.tag}</span>
+      </div>
+      <h3 class="card-title">${a.title}</h3>
+      <p class="card-brief">${a.brief}</p>
+      <div class="card-cta">
+        상세 보기
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </div>
+    </div>
+  `).join('');
+}
+
+let idx = -1;
+
+function clickCard(id){
+  idx = ACTS.findIndex(a=>a.id===id);
+  if(idx >= 0) showPopup(ACTS[idx]);
+}
+
+function showPopup(a){
+  document.getElementById('pNum').textContent = a.num + ' · ' + a.tag;
+  document.getElementById('pTitle').textContent = a.title;
+  document.getElementById('pFacts').innerHTML = a.facts.map(t=>`<li><span>${t}</span></li>`).join('');
+  document.getElementById('pCur').textContent = idx + 1;
+  document.getElementById('pPrev').disabled = idx <= 0;
+  document.getElementById('pNext').disabled = idx >= ACTS.length - 1;
+  document.getElementById('popup').classList.add('show');
+  document.getElementById('backdrop').classList.add('show');
+}
+
+function navPopup(dir){
+  const next = idx + dir;
+  if(next < 0 || next >= ACTS.length) return;
+  idx = next;
+  showPopup(ACTS[idx]);
+}
+
+function closePopup(){
+  idx = -1;
+  document.getElementById('popup').classList.remove('show');
+  document.getElementById('backdrop').classList.remove('show');
+}
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closePopup();
+  if(e.key==='ArrowLeft' && idx > 0) navPopup(-1);
+  if(e.key==='ArrowRight' && idx >= 0 && idx < ACTS.length - 1) navPopup(1);
+});
+
+function tog(){
+  const s=document.getElementById('sb'),m=document.getElementById('mn'),b=document.getElementById('sbb');
+  s.classList.toggle('closed');m.classList.toggle('exp');b.classList.toggle('sh');
+}
+
+renderGrid();
+</script>
+
+
+</body></html>
