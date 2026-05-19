@@ -10,11 +10,15 @@
   --gray:#706F72;--gray-soft:#F5F5F4;
   --gold:#8C7750;--gold-soft:#F7F3EC;
   --text:#1A1A1A;--text2:#555;--text3:#999;--text4:#BDBBB9;
-  --border:#E8E8E6;--card:#fff;--bg:#FAFAF8;
+  --border:#E8E8E6;--card:#fff;
   --sidebar-w:232px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;word-break:keep-all;overflow:hidden}
+body{
+  font-family:'Pretendard',system-ui,sans-serif;
+  background:#ffffff;
+  color:var(--text);font-size:15px;word-break:keep-all;overflow:hidden
+}
 
 /* SIDEBAR */
 .sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--card);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s}
@@ -46,7 +50,6 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .pg-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:12px}
 .pg-eyebrow::after{content:'';flex:1;max-width:160px;height:1px;background:var(--border)}
 .pg-title{font-size:30px;font-weight:800;letter-spacing:-.045em;color:var(--text);line-height:1.15;margin-bottom:6px}
-.pg-sub{font-size:13.5px;color:var(--text3);line-height:1.55}
 
 /* GRID */
 .grid{flex:1;display:grid;grid-template-columns:repeat(12,1fr);gap:14px;align-content:start}
@@ -57,46 +60,41 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .card:nth-child(5){grid-column:7 / span 4}
 
 /* CARD */
-.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px 22px 22px;cursor:pointer;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:200px;transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s;animation:cardIn .55s cubic-bezier(.16,1,.3,1) both}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px 22px 22px;cursor:pointer;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:210px;transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s;animation:cardIn .55s cubic-bezier(.16,1,.3,1) both}
 @keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .card:nth-child(1){animation-delay:.15s}.card:nth-child(2){animation-delay:.22s}.card:nth-child(3){animation-delay:.29s}.card:nth-child(4){animation-delay:.36s}.card:nth-child(5){animation-delay:.43s}
-.card:hover{transform:translateY(-3px);border-color:#D0CECC;box-shadow:0 12px 32px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.04)}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.card:hover{transform:translateY(-3px);border-color:#D0CECC;box-shadow:0 12px 32px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.04)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--red-deep));transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.16,1,.3,1)}
 .card:hover::before{transform:scaleX(1)}
-.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(227,29,56,.04) 0%,transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::after{opacity:1}
+
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .card-num{font-size:10.5px;font-weight:900;letter-spacing:.16em;color:var(--red)}
 .card-tag{font-size:9.5px;font-weight:700;letter-spacing:.06em;color:var(--text4);text-transform:uppercase}
-.card-title{font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.28;margin-bottom:10px}
-.card-brief{font-size:13px;color:var(--text2);line-height:1.65;flex:1}
+.card-emoji{font-size:30px;line-height:1;margin-bottom:12px;display:block;transition:transform .3s cubic-bezier(.16,1,.3,1);width:fit-content}
+.card:hover .card-emoji{transform:scale(1.15) translateY(-2px)}
+.card-title{font-size:17px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.28;margin-bottom:8px}
+.card-brief{font-size:12.5px;color:var(--text2);line-height:1.65;flex:1}
 .card-cta{margin-top:14px;display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--text3);transition:color .2s}
 .card:hover .card-cta{color:var(--red)}
 .card-cta svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 .card:hover .card-cta svg{transform:translateX(3px)}
 
 /* ── POPUP ── */
-.popup{
-  position:fixed;top:50%;left:50%;
-  transform:translate(-50%,-50%) scale(.94);
-  width:min(520px,calc(100vw - 40px));
-  max-height:88vh;
-  background:var(--card);border:1px solid var(--border);border-radius:22px;
-  padding:0;
-  box-shadow:0 28px 72px rgba(0,0,0,.18),0 6px 20px rgba(0,0,0,.06);
-  opacity:0;pointer-events:none;
-  transition:opacity .3s,transform .35s cubic-bezier(.16,1,.3,1),width .25s;
-  z-index:300;overflow:hidden;
-  display:flex;flex-direction:column;
-}
+.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.94);width:min(580px,calc(100vw - 40px));max-height:88vh;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:0;box-shadow:0 28px 72px rgba(0,0,0,.18),0 6px 20px rgba(0,0,0,.06);opacity:0;pointer-events:none;transition:opacity .3s,transform .35s cubic-bezier(.16,1,.3,1),width .25s;z-index:300;overflow:hidden;display:flex;flex-direction:column}
 .popup.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
 .popup::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--red-deep));opacity:0;transition:opacity .3s;z-index:1}
 .popup.show::before{opacity:1}
 .popup-head{padding:24px 28px 18px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0}
 .pop-close{position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:10px;background:var(--gray-soft);border:1px solid var(--border);cursor:pointer;font-size:15px;color:var(--text3);display:flex;align-items:center;justify-content:center;transition:all .15s}
 .pop-close:hover{background:var(--red-soft);color:var(--red);border-color:rgba(227,29,56,.25)}
-.pop-num{display:inline-block;padding:3px 10px;border-radius:6px;background:var(--red-soft);color:var(--red);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.pop-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.pop-emoji-lg{font-size:22px;line-height:1}
+.pop-num{display:inline-block;padding:3px 10px;border-radius:6px;background:var(--red-soft);color:var(--red);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
 .pop-title{font-size:22px;font-weight:800;letter-spacing:-.035em;color:var(--text);line-height:1.2}
 .popup-body{padding:20px 28px 22px;overflow-y:auto;flex:1;min-height:0}
-.popup-foot{padding:14px 28px;background:#FAFAF8;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-shrink:0}
+.popup-foot{padding:14px 28px;background:linear-gradient(135deg,rgba(227,29,56,.025),transparent);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-shrink:0}
 .pop-counter{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.04em}
 .pop-counter b{color:var(--text);font-weight:900;font-size:13px}
 .pop-nav{display:flex;gap:8px}
@@ -108,25 +106,17 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 /* Backdrop */
 .backdrop{position:fixed;inset:0;background:rgba(20,20,22,.4);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:250}
 .backdrop.show{opacity:1;pointer-events:auto}
-
-/* Keyboard hint */
-.kbd-hint{position:fixed;bottom:18px;right:24px;z-index:5;font-size:10px;color:var(--text3);letter-spacing:.04em;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:999px;padding:6px 14px}
+.kbd-hint{position:fixed;bottom:18px;right:24px;z-index:5;font-size:10px;color:var(--text3);letter-spacing:.04em;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:999px;padding:6px 14px}
 .kbd{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;background:var(--card);font-size:9.5px;font-weight:700;color:var(--text2)}
 
-/* ──────────────────────────────────
-   POPUP CONTENT STYLES
-────────────────────────────────── */
+/* ── POPUP CONTENT STYLES ── */
 .pop-section{margin-bottom:18px}
 .pop-section:last-child{margin-bottom:0}
 .pop-sec-title{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:9px;display:flex;align-items:center;gap:8px}
 .pop-sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* KV highlight box */
 .pop-kv{background:var(--gray-soft);border-radius:10px;padding:12px 16px}
 .pop-kv-label{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--text3);margin-bottom:4px}
 .pop-kv-val{font-size:15px;color:var(--text);line-height:1.45}
-
-/* Tables */
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:8px;border:1px solid var(--border)}
 .pop-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:280px}
 .pop-table th{background:var(--gray-soft);padding:8px 11px;text-align:left;font-weight:700;font-size:11px;color:var(--text2);border-bottom:1px solid var(--border);border-right:1px solid var(--border)}
@@ -134,73 +124,64 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .pop-table td{padding:8px 11px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);color:var(--text2);line-height:1.55;vertical-align:top}
 .pop-table td:last-child{border-right:none}
 .pop-table tr:last-child td{border-bottom:none}
-.pop-table .good{color:#1f7a4d;font-weight:600}
-.pop-table .bad{color:var(--red);font-weight:600}
 .ta-c{text-align:center}
-
-/* Badges */
 .pct-badge{display:inline-block;padding:2px 9px;border-radius:6px;font-size:12px;font-weight:800}
 .pct-1{background:var(--red-soft);color:var(--red)}
 .pct-2{background:var(--gold-soft);color:var(--gold)}
 .pct-3{background:var(--gray-soft);color:var(--text2)}
-
-/* Bar chart */
 .bar-group{display:flex;flex-direction:column;gap:10px}
 .bar-row{display:flex;align-items:center;gap:8px}
 .bar-label{font-size:12.5px;font-weight:600;color:var(--text2);width:76px;flex-shrink:0}
 .bar-track{flex:1;height:9px;background:#EDEDEB;border-radius:5px;overflow:hidden}
 .bar-fill{height:100%;border-radius:5px;transition:width .7s cubic-bezier(.16,1,.3,1)}
 .bar-pct{font-size:12px;font-weight:700;color:var(--text2);width:30px;text-align:right;flex-shrink:0}
-
-/* Note */
 .pop-note{font-size:11px;color:var(--text3);margin-top:8px;line-height:1.55}
-
-/* Alert box */
 .pop-alert{display:flex;gap:11px;background:#FFF5F6;border:1px solid rgba(227,29,56,.22);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--text2);line-height:1.6}
 .pop-alert-icon{font-size:16px;flex-shrink:0;margin-top:1px}
-
-/* Chain SVG */
 .chain-svg-wrap{background:var(--gray-soft);border-radius:10px;padding:14px 14px 10px;margin-bottom:8px}
 .chain-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;font-weight:600;color:var(--text2)}
 .leg-item{display:flex;align-items:center;gap:5px}
 .leg-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
-
-/* Competitor table */
 .co-gates{color:#0055AA;font-weight:700}
 .co-conti{color:#E05A00;font-weight:700}
 .co-mega{color:#1A8A3C;font-weight:700}
+.co-drb{color:var(--red);font-weight:700}
 .comp-table td:first-child{white-space:nowrap}
-
-/* Switch grid (Card 4) */
-.switch-grid{display:flex;flex-direction:column;gap:10px}
+.switch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .switch-item{border:1px solid var(--border);border-left-width:3px;border-radius:12px;padding:12px 14px}
-.sw-high{border-left-color:var(--red)}
-.sw-mid{border-left-color:var(--gold)}
-.sw-caution{border-left-color:#F59E0B}
-.sw-low{border-left-color:var(--text4)}
+.sw-high{border-left-color:var(--red)}.sw-mid{border-left-color:var(--gold)}.sw-caution{border-left-color:#F59E0B}.sw-low{border-left-color:var(--text4)}
 .sw-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:5px}
-.sw-icon{width:36px;height:36px;border-radius:8px;background:var(--gray-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+.sw-icon{width:56px;height:56px;border-radius:8px;background:var(--gray-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
 .sw-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:3px}
 .sw-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;display:inline-block}
-.sw-badge.high{background:var(--red-soft);color:var(--red)}
-.sw-badge.mid{background:var(--gold-soft);color:var(--gold)}
-.sw-badge.caution{background:#FFFBEB;color:#D97706}
-.sw-badge.low{background:var(--gray-soft);color:var(--text3)}
+.sw-badge.high{background:var(--red-soft);color:var(--red)}.sw-badge.mid{background:var(--gold-soft);color:var(--gold)}.sw-badge.caution{background:#FFFBEB;color:#D97706}.sw-badge.low{background:var(--gray-soft);color:var(--text3)}
 .sw-desc{font-size:12px;color:var(--text2);line-height:1.65;padding-left:46px}
-
-/* Test table */
 .pop-table.vtbl td:first-child{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;background:var(--gray-soft);width:82px}
-
-/* Status badge */
 .status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;background:#EFF6FF;color:#1D4ED8}
 .status-dot{width:6px;height:6px;border-radius:50%;background:#1D4ED8;animation:blink 1.6s ease infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
-
-/* Pop facts */
 .pop-facts{list-style:none;display:flex;flex-direction:column;gap:10px}
 .pop-facts li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text2);line-height:1.65}
 .pop-facts li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:8px}
 .pop-facts b{color:var(--text);font-weight:700}
+
+/* ── 팝업 사진 스타일 ── */
+.pop-photo{
+  width:100%;border-radius:10px;overflow:hidden;
+  background:var(--gray-soft);
+  margin-bottom:4px;
+}
+.pop-photo img{
+  width:100%;display:block;
+  object-fit:cover;
+  max-height:220px;
+  border-radius:10px;
+}
+.pop-photo-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+}
+.pop-photo-grid .pop-photo{margin-bottom:0}
+.pop-photo-cap{font-size:10.5px;color:var(--text3);text-align:center;margin-top:4px;font-weight:600}
 
 @media(max-width:1100px){
   .grid{grid-template-columns:repeat(6,1fr)}
@@ -212,19 +193,56 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 @media(max-width:640px){
   .grid{grid-template-columns:1fr;gap:10px}
   .card,.card:nth-child(n){grid-column:1}
-  .popup-head{padding:18px 18px 14px}
-  .popup-body{padding:16px 18px 18px}
-  .popup-foot{padding:12px 18px}
+  .popup-head{padding:18px 18px 14px}.popup-body{padding:16px 18px 18px}.popup-foot{padding:12px 18px}
+  .pop-photo-grid{grid-template-columns:1fr}
+}
+
+  50%{border-radius:50% 50% 30% 70% / 50% 70% 30% 50%}
+  100%{border-radius:70% 30% 50% 50% / 30% 70% 50% 50%}
+}
+
+/* ── 사선 줄무늬 배경 ── */
+.sb-stripe{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 28px,
+    rgba(0,0,0,.022) 28px,
+    rgba(0,0,0,.022) 29px
+  );
+}
+.sb-corner1{
+  position:fixed;top:0;right:0;pointer-events:none;z-index:0;
+  width:480px;height:480px;
+  background:radial-gradient(ellipse at 100% 0%,rgba(227,29,56,.09) 0%,transparent 65%);
+}
+.sb-corner2{
+  position:fixed;bottom:0;left:0;pointer-events:none;z-index:0;
+  width:340px;height:340px;
+  background:radial-gradient(ellipse at 0% 100%,rgba(227,29,56,.06) 0%,transparent 65%);
+}
+
+/* 전환가능성 사진 */
+.sw-photo{
+  width:100%;height:110px;
+  border-radius:8px;overflow:hidden;
+  margin-bottom:10px;
+  background:var(--gray-soft);
+}
+.sw-photo img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
 }
 </style>
-</head>
-
-<!-- ============================================================
-  POPUP CONTENT TEMPLATES
-============================================================ -->
-
-<!-- 01 체인시장 분석 -->
 <template id="tpl-market">
+  <div class="pop-section">
+    <!-- 체인 사진 -->
+    <div class="pop-photo">
+      <img src="img/main1.jpg" alt="체인 시장 현장" style="width:100%;height:180px;object-fit:cover;border-radius:10px;display:block">
+    </div>
+    <p class="pop-photo-cap">국내 산업용 체인 시장</p>
+  </div>
   <div class="pop-section">
     <div class="pop-kv">
       <div class="pop-kv-label">국내 시장 규모</div>
@@ -239,21 +257,9 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
           <tr><th>제조사</th><th class="ta-c">추정 점유율</th><th>주요 특징</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td><b>동보</b></td>
-            <td class="ta-c"><span class="pct-badge pct-1">약 45%</span></td>
-            <td>국내 1위, 롤러체인 주력 생산</td>
-          </tr>
-          <tr>
-            <td><b>대동</b></td>
-            <td class="ta-c"><span class="pct-badge pct-2">약 33%</span></td>
-            <td>국내 2위, 리프트체인 강세</td>
-          </tr>
-          <tr>
-            <td><b>동양</b></td>
-            <td class="ta-c"><span class="pct-badge pct-3">약 22%</span></td>
-            <td>국내 3위</td>
-          </tr>
+          <tr><td><b>동보</b></td><td class="ta-c"><span class="pct-badge pct-1">약 45%</span></td><td>국내 1위, 롤러체인 주력 생산</td></tr>
+          <tr><td><b>대동</b></td><td class="ta-c"><span class="pct-badge pct-2">약 33%</span></td><td>국내 2위, 리프트체인 강세</td></tr>
+          <tr><td><b>동양</b></td><td class="ta-c"><span class="pct-badge pct-3">약 22%</span></td><td>국내 3위</td></tr>
         </tbody>
       </table>
     </div>
@@ -262,291 +268,135 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
   <div class="pop-section">
     <div class="pop-sec-title">체인 종류별 구성비</div>
     <div class="bar-group">
-      <div class="bar-row">
-        <span class="bar-label">롤러체인</span>
-        <div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--red)"></div></div>
-        <span class="bar-pct">62%</span>
-      </div>
-      <div class="bar-row">
-        <span class="bar-label">리프트체인</span>
-        <div class="bar-track"><div class="bar-fill" style="width:24%;background:var(--gold)"></div></div>
-        <span class="bar-pct">24%</span>
-      </div>
-      <div class="bar-row">
-        <span class="bar-label">기타</span>
-        <div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--text4)"></div></div>
-        <span class="bar-pct">14%</span>
-      </div>
+      <div class="bar-row"><span class="bar-label">롤러체인</span><div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--red)"></div></div><span class="bar-pct">62%</span></div>
+      <div class="bar-row"><span class="bar-label">리프트체인</span><div class="bar-track"><div class="bar-fill" style="width:24%;background:var(--gold)"></div></div><span class="bar-pct">24%</span></div>
+      <div class="bar-row"><span class="bar-label">기타</span><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--text4)"></div></div><span class="bar-pct">14%</span></div>
     </div>
   </div>
-</template>
-
-<!-- 02 체인 구조 이해 -->
-<template id="tpl-structure">
+</template><template id="tpl-structure">
   <div class="pop-section">
-    <div class="pop-sec-title">롤러체인 구조</div>
+    <div class="pop-sec-title">체인 구조</div>
     <div class="chain-svg-wrap">
-      <!-- Side view: 2 outer + 1 inner pitch, pitch=110px, cy=75, outer half-h=24, inner half-h=20 -->
       <svg viewBox="0 0 430 138" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
-        <!-- Outer link 1: pin1(55) → pin2(165) -->
-        <path d="M 55,51 H 165 A 24,24 0 0 1 165,99 H 55 A 24,24 0 0 1 55,51 Z"
-              fill="#D0CECC" stroke="#706F72" stroke-width="1.5"/>
-        <!-- Inner link: pin2(165) → pin3(275) -->
-        <path d="M 165,55 H 275 A 20,20 0 0 1 275,95 H 165 A 20,20 0 0 1 165,55 Z"
-              fill="#E8E8E6" stroke="#AAAAAA" stroke-width="1.2"/>
-        <!-- Outer link 2: pin3(275) → pin4(385) -->
-        <path d="M 275,51 H 385 A 24,24 0 0 1 385,99 H 275 A 24,24 0 0 1 275,51 Z"
-              fill="#D0CECC" stroke="#706F72" stroke-width="1.5"/>
-
-        <!-- Roller / Bushing / Pin @ pin1(55,75) -->
-        <circle cx="55" cy="75" r="20" fill="white" stroke="#E31D38" stroke-width="2.2"/>
-        <circle cx="55" cy="75" r="12" fill="#F7F3EC" stroke="#8C7750" stroke-width="2"/>
-        <circle cx="55" cy="75" r="5" fill="#706F72"/>
-        <!-- @ pin2(165,75) -->
-        <circle cx="165" cy="75" r="20" fill="white" stroke="#E31D38" stroke-width="2.2"/>
-        <circle cx="165" cy="75" r="12" fill="#F7F3EC" stroke="#8C7750" stroke-width="2"/>
-        <circle cx="165" cy="75" r="5" fill="#706F72"/>
-        <!-- @ pin3(275,75) -->
-        <circle cx="275" cy="75" r="20" fill="white" stroke="#E31D38" stroke-width="2.2"/>
-        <circle cx="275" cy="75" r="12" fill="#F7F3EC" stroke="#8C7750" stroke-width="2"/>
-        <circle cx="275" cy="75" r="5" fill="#706F72"/>
-        <!-- @ pin4(385,75) -->
-        <circle cx="385" cy="75" r="20" fill="white" stroke="#E31D38" stroke-width="2.2"/>
-        <circle cx="385" cy="75" r="12" fill="#F7F3EC" stroke="#8C7750" stroke-width="2"/>
-        <circle cx="385" cy="75" r="5" fill="#706F72"/>
-
-        <!-- Label: 롤러 -->
-        <line x1="43" y1="58" x2="22" y2="20" stroke="#E31D38" stroke-width="1" stroke-dasharray="3,2"/>
-        <text x="20" y="15" text-anchor="middle" font-size="11" font-weight="700"
-              fill="#E31D38" font-family="Pretendard,system-ui,sans-serif">롤러</text>
-
-        <!-- Label: 부시 -->
-        <line x1="67" y1="66" x2="96" y2="30" stroke="#8C7750" stroke-width="1" stroke-dasharray="3,2"/>
-        <text x="100" y="26" text-anchor="start" font-size="11" font-weight="700"
-              fill="#8C7750" font-family="Pretendard,system-ui,sans-serif">부시</text>
-
-        <!-- Label: 핀 -->
-        <line x1="55" y1="80" x2="55" y2="118" stroke="#555" stroke-width="1" stroke-dasharray="3,2"/>
-        <text x="55" y="131" text-anchor="middle" font-size="11" font-weight="700"
-              fill="#555" font-family="Pretendard,system-ui,sans-serif">핀</text>
-
-        <!-- Label: 플레이트 -->
-        <line x1="110" y1="51" x2="155" y2="20" stroke="#706F72" stroke-width="1" stroke-dasharray="3,2"/>
-        <text x="159" y="16" text-anchor="start" font-size="11" font-weight="700"
-              fill="#706F72" font-family="Pretendard,system-ui,sans-serif">플레이트</text>
+        <path d="M 55,51 H 165 A 24,24 0 0 1 165,99 H 55 A 24,24 0 0 1 55,51 Z" fill="#D0CECC" stroke="#706F72" stroke-width="1.5"></path>
+        <path d="M 165,55 H 275 A 20,20 0 0 1 275,95 H 165 A 20,20 0 0 1 165,55 Z" fill="#E8E8E6" stroke="#AAAAAA" stroke-width="1.2"></path>
+        <path d="M 275,51 H 385 A 24,24 0 0 1 385,99 H 275 A 24,24 0 0 1 275,51 Z" fill="#D0CECC" stroke="#706F72" stroke-width="1.5"></path>
+        <!-- Pins -->
+        <circle cx="55" cy="75" r="11" fill="#4E4D50" stroke="#333" stroke-width="1"></circle><circle cx="55" cy="75" r="5" fill="#888"></circle>
+        <circle cx="165" cy="75" r="11" fill="#4E4D50" stroke="#333" stroke-width="1"></circle><circle cx="165" cy="75" r="5" fill="#888"></circle>
+        <circle cx="275" cy="75" r="11" fill="#4E4D50" stroke="#333" stroke-width="1"></circle><circle cx="275" cy="75" r="5" fill="#888"></circle>
+        <circle cx="385" cy="75" r="11" fill="#4E4D50" stroke="#333" stroke-width="1"></circle><circle cx="385" cy="75" r="5" fill="#888"></circle>
+        <!-- Rollers -->
+        <circle cx="110" cy="75" r="14" fill="white" stroke="#E31D38" stroke-width="2"></circle><circle cx="110" cy="75" r="7" fill="#F5D0D5"></circle>
+        <circle cx="220" cy="75" r="14" fill="white" stroke="#E31D38" stroke-width="2"></circle><circle cx="220" cy="75" r="7" fill="#F5D0D5"></circle>
+        <circle cx="330" cy="75" r="14" fill="white" stroke="#E31D38" stroke-width="2"></circle><circle cx="330" cy="75" r="7" fill="#F5D0D5"></circle>
+        <!-- Pitch arrows -->
+        <line x1="55" y1="120" x2="165" y2="120" stroke="#999" stroke-width="1" stroke-dasharray="3,3"></line>
+        <text x="110" y="134" text-anchor="middle" font-size="10" fill="#999" font-family="Pretendard,sans-serif">피치 (Pitch)</text>
       </svg>
-    </div>
-    <div class="chain-legend">
-      <span class="leg-item"><span class="leg-dot" style="background:#E31D38"></span>롤러 (Roller)</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#8C7750"></span>부시 (Bushing)</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#706F72"></span>핀 (Pin)</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#D0CECC;border:1px solid #999"></span>플레이트</span>
+      <div class="chain-legend" style="margin-top:8px">
+        <span class="leg-item"><span class="leg-dot" style="background:#D0CECC;border:1px solid #706F72"></span>외부 링크 플레이트</span>
+        <span class="leg-item"><span class="leg-dot" style="background:#E8E8E6;border:1px solid #AAAAAA"></span>내부 링크 플레이트</span>
+        <span class="leg-item"><span class="leg-dot" style="background:#4E4D50"></span>핀/부시</span>
+        <span class="leg-item"><span class="leg-dot" style="background:white;border:2px solid #E31D38"></span>롤러</span>
+      </div>
     </div>
   </div>
-
   <div class="pop-section">
-    <div class="pop-sec-title">체인 vs 동기벨트 비교</div>
+    <div class="pop-sec-title">신장 메커니즘 &amp; 벨트 우위</div>
     <div class="table-wrap">
       <table class="pop-table">
-        <thead>
-          <tr><th>항목</th><th>롤러체인</th><th>동기벨트 (DRB)</th></tr>
-        </thead>
+        <thead><tr><th></th><th>체인</th><th>벨트</th></tr></thead>
         <tbody>
-          <tr><td>소음</td><td class="bad">높음 (금속 충돌음)</td><td class="good">저소음</td></tr>
-          <tr><td>윤활</td><td class="bad">정기 윤활 필수</td><td class="good">무윤활</td></tr>
-          <tr><td>신장</td><td class="bad">마모 → 피치 신장</td><td class="good">없음 (카본 코드)</td></tr>
-          <tr><td>교체 기준</td><td>신장률 <b>2%</b> 초과 시</td><td>수명 예측 가능</td></tr>
-          <tr><td>오염</td><td class="bad">오일·그리스 비산</td><td class="good">청결 환경 유지</td></tr>
-          <tr><td>중량</td><td class="bad">무거움</td><td class="good">경량</td></tr>
+          <tr><td><b>신장</b></td><td class="bad">핀 부시 마모, 피치 늘어짐</td><td class="good">벨트 신장</td></tr>
+          <tr><td><b>윤활</b></td><td class="bad">정기 급유 필수</td><td class="good">무윤활</td></tr>
+          <tr><td><b>소음</b></td><td class="bad">고속 시 소음 큼</td><td class="good">저소음</td></tr>
+          <tr><td><b>교체 주기</b></td><td>신장률 2% 초과 시</td><td class="good">신장률 2% 초과 시</td></tr>
         </tbody>
       </table>
     </div>
   </div>
-
   <div class="pop-section">
-    <div class="pop-alert">
-      <span class="pop-alert-icon">⚠️</span>
-      <div><b>신장률 2% 초과 시 즉시 교체</b><br>핀·부시 마모 → 피치 늘어짐 → 스프로킷 이탈 위험. 정기 신장률 측정 권장.</div>
-    </div>
+    <div class="pop-sec-title">벨트 전환 5단계</div>
+    <ul class="pop-facts">
+      <li><span>① 기존 사양 파악 — 피치, 폭, 속도, 하중</span></li>
+      <li><span>② 환경 검토 — 온도, 습도, 화학물질 노출</span></li>
+      <li><span>③ 풀리 및 부품 설계 검토</span></li>
+      <li><span>④ 중심간 거리 및 장력 설계 검토</span></li>
+      <li><span>⑤ 시제품 적용 → <b>성능 확정</b></span></li>
+    </ul>
   </div>
-</template>
-
-<!-- 03 경쟁사 분석 -->
-<template id="tpl-competitor">
+</template><template id="tpl-competitor">
   <div class="pop-section">
-    <div class="pop-sec-title">폴리우레탄 동기벨트 — 직접 경쟁사 3사</div>
+    <div class="pop-sec-title">폴리우레탄 벨트 — 직접 경쟁사 3사</div>
     <div class="table-wrap">
       <table class="pop-table comp-table">
         <thead>
-          <tr>
-            <th style="min-width:72px">제조사</th>
-            <th style="min-width:110px">주요 제품</th>
-            <th style="min-width:130px">특징</th>
-            <th style="min-width:140px">현황</th>
-            <th style="min-width:140px">영업 포인트</th>
-          </tr>
+<tr><th style="min-width:72px">제조사</th><th style="min-width:110px">주요 제품</th><th style="min-width:130px">특징</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td><span class="co-gates">Gates</span></td>
-            <td>Poly Chain<br>GT Carbon</td>
-            <td>카본 텐션 코드, 무윤활, 고토크, 내열·내화학성 우수</td>
-            <td>글로벌 시장 점유율 1위. 체인 직접 대체 마케팅 공격적으로 전개</td>
-            <td>고가 프리미엄 포지션 → DRB 원가·납기·AS 우위로 대응</td>
-          </tr>
-          <tr>
-            <td><span class="co-conti">Continental</span></td>
-            <td>Synchrochain<br>Carbon</td>
-            <td>카본 코드, 고정도 피치 유지, 유럽 OEM 공급 중심</td>
-            <td>유럽 제조업 주력. OESL 분사 이후 사업 구조조정 진행 중</td>
-            <td>유럽 레퍼런스 활용. 국내 납기·현지 AS 취약점 공략 가능</td>
-          </tr>
-          <tr>
-            <td><span class="co-mega">Megadyne</span></td>
-            <td>RPP Carbon /<br>Megasync PU</td>
-            <td>PU 바디, 카본·아라미드 코드 선택, 폭넓은 피치 라인업</td>
-            <td>2018년 Gates에 인수. 사실상 Gates 계열로 운영</td>
-            <td>Gates 대비 가격 유연성 존재. 중소형 어플리케이션 공략 용이</td>
-          </tr>
+<tr><td><span class="co-drb">DRB</span></td><td>DONGIL STARCHAIN CARBON PU</td><td>카본 코드, Millable PU 바디, 전신율 고토크</td></tr>
+<tr><td><span class="co-gates">Gates</span></td><td>Poly Chain GT Carbon</td><td>카본 코드, 무윤활, 고토크, 내열·내화학성 우수</td></tr>
+<tr><td><span class="co-conti">Continental</span></td><td>Synchrochain Carbon</td><td>카본 코드, 유럽 공급 중심</td></tr>
+<tr><td><span class="co-mega">Megadyne</span></td><td>RPP Carbon / Megasync PU</td><td>PU 바디, 카본·아라미드 코드 선택</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="pop-note">※ 3사 공통 포지셔닝: <b>무윤활 · 저소음 · 고토크</b>를 앞세워 롤러체인 직접 대체 주장</div>
+    <div class="pop-note">※ 3사 공통 포지셔닝: <b>무윤활 · 저소음 · 고토크</b>를 앞세워 체인 직접 대체 주장</div>
   </div>
-</template>
-
-<!-- 04 전환 가능성 분석 -->
-<template id="tpl-analysis">
+</template><template id="tpl-analysis">
   <div class="pop-section">
     <div class="switch-grid">
-
-      <!-- 이송용 -->
-      <div class="switch-item sw-high">
-        <div class="sw-header">
-          <div class="sw-icon">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:28px">
-              <rect x="2" y="14" width="9" height="8" rx="2.5" fill="#D0CECC" stroke="#706F72" stroke-width="1.3"/>
-              <rect x="13" y="14" width="9" height="8" rx="2.5" fill="#D0CECC" stroke="#706F72" stroke-width="1.3"/>
-              <rect x="24" y="14" width="9" height="8" rx="2.5" fill="#D0CECC" stroke="#706F72" stroke-width="1.3"/>
-              <circle cx="6.5" cy="18" r="3.2" fill="white" stroke="#E31D38" stroke-width="1.6"/>
-              <circle cx="17.5" cy="18" r="3.2" fill="white" stroke="#E31D38" stroke-width="1.6"/>
-              <circle cx="28.5" cy="18" r="3.2" fill="white" stroke="#E31D38" stroke-width="1.6"/>
-            </svg>
-          </div>
-          <div>
-            <div class="sw-name">이송용 (Conveyor Chain)</div>
-            <span class="sw-badge high">전환 최우선</span>
-          </div>
-        </div>
-        <p class="sw-desc">물류·식품·포장 라인 대상. 청결 환경에서 DRB 동기벨트 압도적 우위. 즉시 영업 타깃.</p>
-      </div>
-
       <!-- 롤러체인 -->
-      <div class="switch-item sw-mid">
+      <div class="switch-item sw-high">
+        <div class="sw-photo"><img src="img/main2.jpeg" alt="롤러체인"></div>
         <div class="sw-header">
-          <div class="sw-icon">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:28px">
-              <path d="M 4,11 H 18 A 7,7 0 0 1 18,25 H 4 A 7,7 0 0 1 4,11 Z"
-                    fill="#D0CECC" stroke="#706F72" stroke-width="1.3"/>
-              <path d="M 14,13 H 28 A 6,6 0 0 1 28,23 H 14 A 6,6 0 0 1 14,13 Z"
-                    fill="#E8E8E6" stroke="#AAAAAA" stroke-width="1.1"/>
-              <circle cx="18" cy="18" r="5.5" fill="white" stroke="#E31D38" stroke-width="1.7"/>
-              <circle cx="18" cy="18" r="2.5" fill="#706F72"/>
-            </svg>
-          </div>
-          <div>
-            <div class="sw-name">롤러체인 (Roller Chain)</div>
-            <span class="sw-badge mid">조건부 전환</span>
-          </div>
+          <div><div class="sw-name">롤러체인 (Roller Chain)</div><span class="sw-badge high">전환 적합</span></div>
         </div>
-        <p class="sw-desc">일반 산업기계. 부하·속도·환경 조건 검토 필요. 중소형 장비에서 전환 가능성 높음.</p>
+        <p class="sw-desc">일반 산업기계 전반. 중소형 장비 위주로 DRB 벨트 전환 적합.&nbsp;</p>
       </div>
-
       <!-- 리프트체인 -->
       <div class="switch-item sw-caution">
+        <div class="sw-photo"><img src="img/main3.jpeg" alt="리프트체인"></div>
         <div class="sw-header">
-          <div class="sw-icon">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:28px">
-              <rect x="11" y="2" width="14" height="9" rx="3" fill="#D0CECC" stroke="#706F72" stroke-width="1.3"/>
-              <rect x="11" y="13" width="14" height="9" rx="3" fill="#E8E8E6" stroke="#AAAAAA" stroke-width="1.1"/>
-              <rect x="11" y="24" width="14" height="9" rx="3" fill="#D0CECC" stroke="#706F72" stroke-width="1.3"/>
-              <circle cx="18" cy="11.5" r="3" fill="white" stroke="#F59E0B" stroke-width="1.6"/>
-              <circle cx="18" cy="22.5" r="3" fill="white" stroke="#F59E0B" stroke-width="1.6"/>
-            </svg>
-          </div>
-          <div>
-            <div class="sw-name">리프트체인 (Lift Chain)</div>
-            <span class="sw-badge caution">안전 인증 필요</span>
-          </div>
+          <div><div class="sw-name">리프트체인 (Lift Chain)</div><span class="sw-badge caution">안전 인증 필요</span></div>
         </div>
         <p class="sw-desc">스태커·지게차 승강 적용. 안전 인증(KS·CE) 취득 필수. 현재 실차 테스트 병행 진행 중.</p>
       </div>
-
       <!-- 특수체인 -->
       <div class="switch-item sw-low">
+        <div class="sw-photo"><img src="img/main4.webp" alt="특수체인"></div>
         <div class="sw-header">
-          <div class="sw-icon">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:28px">
-              <circle cx="18" cy="18" r="8" fill="none" stroke="#BDBBB9" stroke-width="2"/>
-              <circle cx="18" cy="18" r="3" fill="#BDBBB9"/>
-              <line x1="18" y1="6" x2="18" y2="3" stroke="#BDBBB9" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="18" y1="33" x2="18" y2="30" stroke="#BDBBB9" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="6" y1="18" x2="3" y2="18" stroke="#BDBBB9" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="33" y1="18" x2="30" y2="18" stroke="#BDBBB9" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="9.8" y1="9.8" x2="7.7" y2="7.7" stroke="#BDBBB9" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="28.3" y1="28.3" x2="26.2" y2="26.2" stroke="#BDBBB9" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="28.3" y1="9.8" x2="26.2" y2="7.7" stroke="#BDBBB9" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="9.8" y1="28.3" x2="7.7" y2="26.2" stroke="#BDBBB9" stroke-width="2.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div>
-            <div class="sw-name">특수체인 (Special Chain)</div>
-            <span class="sw-badge low">장기 검토</span>
-          </div>
+          <div><div class="sw-name">특수체인 (Special Chain)</div><span class="sw-badge low">장기 검토</span></div>
         </div>
         <p class="sw-desc">농기계·건설장비·특수 산업용. 고하중·극한 환경 적용으로 벨트 전환 난이도 높음. 장기 과제.</p>
       </div>
-
     </div>
   </div>
-</template>
-
-<!-- 05 실차 테스트 -->
-<template id="tpl-test">
+</template><template id="tpl-test">
+  <div class="pop-section">
+    <div class="pop-sec-title">현장 사진</div>
+    <div class="pop-photo-grid">
+      <div>
+        <div class="pop-photo"><img src="img/main5.jpeg" alt="실차 테스트 현장 1" style="width:100%;height:160px;object-fit:cover;border-radius:10px;display:block"></div>
+        <p class="pop-photo-cap">테스트 현장 #1</p>
+      </div>
+      <div>
+        <div class="pop-photo"><img src="img/main6.jpeg" alt="실차 테스트 현장 2" style="width:100%;height:160px;object-fit:cover;border-radius:10px;display:block"></div>
+        <p class="pop-photo-cap">테스트 현장 #2</p>
+      </div>
+    </div>
+  </div>
   <div class="pop-section">
     <div class="pop-sec-title">테스트 구성</div>
     <div class="table-wrap">
       <table class="pop-table vtbl">
         <tbody>
-          <tr>
-            <td>대상 장비</td>
-            <td>전동 스태커 <b>3종</b></td>
-          </tr>
-          <tr>
-            <td>구성 방식</td>
-            <td>
-              ① 기존 체인 그대로 장착<br>
-              ② DRB 동기벨트 교체 장착<br>
-              ③ 체인·벨트 동시 운용 비교
-            </td>
-          </tr>
-          <tr>
-            <td>하중 조건</td>
-            <td>실하중 <b>1.5톤 파렛트</b> 승강</td>
-          </tr>
-          <tr>
-            <td>측정 항목</td>
-            <td>신장률, 소음 수준, 온도 상승, 운전 안정성</td>
-          </tr>
-          <tr>
-            <td>진행 현황</td>
-            <td>
-              <span class="status-badge">
-                <span class="status-dot"></span>
-                진행 중
-              </span>
-            </td>
-          </tr>
+          <tr><td>대상 장비</td><td>전동 스태커</td></tr>
+          <tr><td>구성 방식</td><td>① 기존 체인 그대로 장착<br>② DRB 벨트 교체 장착<br>③ 체인·벨트 동시 운용 비교</td></tr>
+          <tr><td>하중 조건</td><td>실하중 <b>1톤 파렛트</b> 승강</td></tr>
+          <tr><td>측정 항목</td><td>신장률, 소음 수준, 온도 상승, 운전 안정성</td></tr>
+          <tr><td>진행 현황</td><td><span class="status-badge"><span class="status-dot"></span>진행 중</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -559,20 +409,38 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
       <li><span>리프트체인 적용 레퍼런스 확보 → <b>안전 인증 진입점</b></span></li>
     </ul>
   </div>
-</template>
+</template></head>
 
 <!-- ============================================================
-  BODY
+  POPUP CONTENT TEMPLATES
 ============================================================ -->
+
+<!-- 01 체인시장 분석 -->
+
+
+<!-- 02 체인 구조 이해 -->
+
+
+<!-- 03 경쟁사 분석 -->
+
+
+<!-- 04 전환 가능성 분석 -->
+
+
+<!-- 05 실차 테스트 -->
+
+
 <body data-hh-mode="direct">
+<div class="sb-stripe"></div>
+<div class="sb-corner1"></div>
+<div class="sb-corner2"></div>
+
 <button class="sb-btn sh" id="sbb" onclick="tog()">
   <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
 </button>
 <aside class="sidebar" id="sb">
   <div class="sb-head">
-    <a href="C2B_COVER.html" class="sb-logo-wrap">
-      <div class="sb-logo">DRB <span>팀C2B</span></div>
-    </a>
+    <a href="index.html" class="sb-logo-wrap"><div class="sb-logo">DRB <span>팀C2B</span></div></a>
     <div class="sb-sub">Chain to Belt 전환 프로젝트</div>
   </div>
   <nav class="sb-nav">
@@ -587,123 +455,128 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 <div class="main" id="mn">
   <div class="hdr">
     <div class="pg-eyebrow">주요내용 · Activities</div>
-    <h1 class="pg-title">팀C2B 주요내용</h1>
-    <p class="pg-sub"><br></p>
+    <h1 class="pg-title" style="font-size: 36px;">팀C2B 주요내용</h1>
   </div>
-
-  <div class="grid" id="grid"></div>
-
-  <div class="kbd-hint">
-    <span class="kbd">←</span><span class="kbd">→</span> 이동 · <span class="kbd">Esc</span> 닫기
+  <div class="grid" id="grid" data-hs="">
+    <div class="card" onclick="clickCard('market')">
+      <div class="card-top"><span class="card-num">01</span><span class="card-tag">Market</span></div>
+      <span class="card-emoji">📊</span>
+      <h3 class="card-title">체인 시장 분석</h3>
+      <p class="card-brief">국내 산업용 체인 시장 규모와 제조사 분석&nbsp;</p>
+      <div class="card-cta">상세 보기<svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></div>
+    </div>
+    <div class="card" onclick="clickCard('structure')">
+      <div class="card-top"><span class="card-num">02</span><span class="card-tag">Structure</span></div>
+      <span class="card-emoji">⚙️</span>
+      <h3 class="card-title">체인 구조 이해</h3>
+      <p class="card-brief">체인 구조 분석 및 벨트 대비 특징 확인</p>
+      <div class="card-cta">상세 보기<svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></div>
+    </div>
+    <div class="card" onclick="clickCard('competitor')">
+      <div class="card-top"><span class="card-num">03</span><span class="card-tag">Competitor</span></div>
+      <span class="card-emoji">🔍</span>
+      <h3 class="card-title">경쟁사 분석</h3>
+      <p class="card-brief">경쟁사 현황 조사</p>
+      <div class="card-cta">상세 보기<svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></div>
+    </div>
+    <div class="card" onclick="clickCard('analysis')">
+      <div class="card-top"><span class="card-num">04</span><span class="card-tag">Analysis</span></div>
+      <span class="card-emoji">🔄</span>
+      <h3 class="card-title">전환 가능성 분석</h3>
+      <p class="card-brief">어플리케이션별 적합도 분석</p>
+      <div class="card-cta">상세 보기<svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></div>
+    </div>
+    <div class="card" onclick="clickCard('test')">
+      <div class="card-top"><span class="card-num">05</span><span class="card-tag">Field Test</span></div>
+      <span class="card-emoji">🚛</span>
+      <h3 class="card-title">실차 테스트</h3>
+      <p class="card-brief">DRB 내부 벨트 피로도 테스트 진행</p>
+      <div class="card-cta">상세 보기<svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></div>
+    </div></div>
+  <div class="kbd-hint"><span class="kbd">←</span><span class="kbd">→</span> 이동 · <span class="kbd">Esc</span> 닫기</div>
+  <div class="backdrop" id="backdrop" onclick="closePopup()"></div>
+  <div class="popup" id="popup" style="width: min(780px, -40px + 100vw);">
+    <div class="popup-head">
+      <button class="pop-close" onclick="closePopup()">✕</button>
+      <div class="pop-meta">
+        <span class="pop-emoji-lg" id="pEmoji">🔍</span>
+        <span class="pop-num" id="pNum">03 · Competitor</span>
+      </div>
+      <div class="pop-title" id="pTitle">경쟁사 분석</div>
+    </div>
+    <div class="popup-body" id="pBody">
+  <div class="pop-section">
+    <div class="pop-sec-title">폴리우레탄 벨트 — 직접 경쟁사 3사</div>
+    <div class="table-wrap">
+      <table class="pop-table comp-table">
+        <thead>
+<tr><th style="min-width:72px">제조사</th><th style="min-width:110px">주요 제품</th><th style="min-width:130px">특징</th></tr>
+        </thead>
+        <tbody>
+<tr><td><span class="co-drb">DRB</span></td><td>DONGIL STARCHAIN CARBON PU</td><td>카본 코드, Millable PU 바디, 전신율 고토크</td></tr>
+<tr><td><span class="co-gates"><span style="color: rgb(0, 0, 0);"><span style="color: rgb(0, 0, 0);">Gates</span></span></span></td><td>Poly Chain GT Carbon</td><td>카본 코드, 무윤활, 고토크, 내열·내화학성 우수</td></tr>
+<tr><td><span class="co-conti">Continental</span></td><td>Synchrochain Carbon</td><td>카본 코드, 유럽 공급 중심</td></tr>
+<tr><td><span class="co-mega"><span style="color: rgb(243, 79, 79);">Megadyne</span></span></td><td>RPP Carbon / Megasync PU</td><td>PU 바디, 카본·아라미드 코드 선택</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pop-note">※ 3사 공통 포지셔닝: <b>무윤활 · 저소음 · 고토크</b>를 앞세워 체인 직접 대체 주장</div>
   </div>
 </div>
-
-<div class="backdrop" id="backdrop" onclick="closePopup()"></div>
-
-<div class="popup" id="popup">
-  <div class="popup-head">
-    <button class="pop-close" onclick="closePopup()">✕</button>
-    <span class="pop-num" id="pNum">01 · Market</span>
-    <div class="pop-title" id="pTitle">체인 시장 분석</div>
-  </div>
-  <div class="popup-body" id="pBody">
-    <!-- Content injected by showPopup() -->
-  </div>
-  <div class="popup-foot">
-    <div class="pop-counter"><b id="pCur">1</b> / 5</div>
-    <div class="pop-nav">
-      <button id="pPrev" onclick="navPopup(-1)" aria-label="이전" disabled>
-        <svg viewBox="0 0 16 16"><path d="M11 4l-5 4 5 4"/></svg>
-      </button>
-      <button id="pNext" onclick="navPopup(1)" aria-label="다음">
-        <svg viewBox="0 0 16 16"><path d="M5 4l5 4-5 4"/></svg>
-      </button>
+    <div class="popup-foot">
+      <div class="pop-counter"><b id="pCur">3</b> / 5</div>
+      <div class="pop-nav">
+        <button id="pPrev" onclick="navPopup(-1)" aria-label="이전">
+          <svg viewBox="0 0 16 16"><path d="M11 4l-5 4 5 4"></path></svg>
+        </button>
+        <button id="pNext" onclick="navPopup(1)" aria-label="다음">
+          <svg viewBox="0 0 16 16"><path d="M5 4l5 4-5 4"></path></svg>
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
 const ACTS = [
-  {
-    id:'market', num:'01', tag:'Market',
-    title:'체인 시장 분석',
-    brief:'국내 산업용 체인 시장 규모와 제조사 분석',
-    tplId:'tpl-market',
-    width:'min(580px,calc(100vw - 40px))'
-  },
-  {
-    id:'structure', num:'02', tag:'Structure',
-    title:'체인 구조 이해',
-    brief:'Roller Chain 구성·신장 메커니즘과 벨트 전환 이점',
-    tplId:'tpl-structure',
-    width:'min(640px,calc(100vw - 40px))'
-  },
-  {
-    id:'competitor', num:'03', tag:'Competitor',
-    title:'경쟁사 분석',
-    brief:'Gates · Continental · Megadyne 폴리우레탄 동기벨트 비교',
-    tplId:'tpl-competitor',
-    width:'min(780px,calc(100vw - 40px))'
-  },
-  {
-    id:'analysis', num:'04', tag:'Analysis',
-    title:'전환 가능성 분석',
-    brief:'체인 타입별 전환 적합도 — 이송용·롤러·리프트·특수',
-    tplId:'tpl-analysis',
-    width:'min(620px,calc(100vw - 40px))'
-  },
-  {
-    id:'test', num:'05', tag:'Field Test',
-    title:'실차 테스트',
-    brief:'전동 스태커 3종 구성, 1.5톤 실하중 비교 검증 진행 중',
-    tplId:'tpl-test',
-    width:'min(540px,calc(100vw - 40px))'
-  }
+  { id:'market',     num:'01', tag:'Market',     emoji:'📊', title:'체인 시장 분석',     brief:'국내 산업용 체인 시장 규모와 제조사 분석',                        tplId:'tpl-market',     width:'min(580px,calc(100vw - 40px))' },
+  { id:'structure',  num:'02', tag:'Structure',  emoji:'⚙️', title:'체인 구조 이해',     brief:'체인 구조 분석 및 벨트 대비 특징 확인',              tplId:'tpl-structure',  width:'min(640px,calc(100vw - 40px))' },
+  { id:'competitor', num:'03', tag:'Competitor', emoji:'🔍', title:'경쟁사 분석',         brief:'경쟁사 현황 조사',        tplId:'tpl-competitor', width:'min(780px,calc(100vw - 40px))' },
+  { id:'analysis',   num:'04', tag:'Analysis',   emoji:'🔄', title:'전환 가능성 분석',   brief:'어플리케이션별 적합도 분석',              tplId:'tpl-analysis',   width:'min(760px,calc(100vw - 40px))' },
+  { id:'test',       num:'05', tag:'Field Test', emoji:'🚛', title:'실차 테스트',         brief:'DRB 내부 벨트 피로도 테스트 진행',           tplId:'tpl-test',       width:'min(560px,calc(100vw - 40px))' },
 ];
 
 function renderGrid(){
-  document.getElementById('grid').innerHTML = ACTS.map((a,i) => `
-    <div class="card" onclick="clickCard('${a.id}')" style="animation-delay:${.15+i*.07}s">
-      <div class="card-top">
-        <span class="card-num">${a.num}</span>
-        <span class="card-tag">${a.tag}</span>
-      </div>
+  document.getElementById('grid').innerHTML = ACTS.map(a=>`
+    <div class="card" onclick="clickCard('${a.id}')">
+      <div class="card-top"><span class="card-num">${a.num}</span><span class="card-tag">${a.tag}</span></div>
+      <span class="card-emoji">${a.emoji}</span>
       <h3 class="card-title">${a.title}</h3>
       <p class="card-brief">${a.brief}</p>
-      <div class="card-cta">
-        상세 보기
-        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-      </div>
-    </div>
-  `).join('');
+      <div class="card-cta">상세 보기<svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+    </div>`).join('');
 }
 
 let idx = -1;
 
 function clickCard(id){
-  idx = ACTS.findIndex(a => a.id === id);
+  idx = ACTS.findIndex(a=>a.id===id);
   if(idx >= 0) showPopup(ACTS[idx]);
 }
 
 function showPopup(a){
-  const popup = document.getElementById('popup');
-  // Set width per card
-  popup.style.width = a.width || 'min(520px,calc(100vw - 40px))';
-
-  document.getElementById('pNum').textContent   = a.num + ' · ' + a.tag;
-  document.getElementById('pTitle').textContent = a.title;
-
-  // Load template
   const tpl = document.getElementById(a.tplId);
-  document.getElementById('pBody').innerHTML = tpl ? tpl.innerHTML : '';
-  // Reset scroll
-  document.getElementById('pBody').scrollTop = 0;
-
-  document.getElementById('pCur').textContent    = idx + 1;
-  document.getElementById('pPrev').disabled      = idx <= 0;
-  document.getElementById('pNext').disabled      = idx >= ACTS.length - 1;
-
-  popup.classList.add('show');
+  document.getElementById('pEmoji').textContent = a.emoji;
+  document.getElementById('pNum').textContent = a.num + ' · ' + a.tag;
+  document.getElementById('pTitle').textContent = a.title;
+  document.getElementById('pBody').innerHTML = '';
+  if(tpl) document.getElementById('pBody').appendChild(tpl.content.cloneNode(true));
+  document.getElementById('pCur').textContent = idx + 1;
+  document.getElementById('pPrev').disabled = idx <= 0;
+  document.getElementById('pNext').disabled = idx >= ACTS.length - 1;
+  const p = document.getElementById('popup');
+  p.style.width = a.width;
+  p.classList.add('show');
   document.getElementById('backdrop').classList.add('show');
 }
 
@@ -720,10 +593,10 @@ function closePopup(){
   document.getElementById('backdrop').classList.remove('show');
 }
 
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closePopup();
-  if(e.key === 'ArrowLeft'  && idx > 0)                       navPopup(-1);
-  if(e.key === 'ArrowRight' && idx >= 0 && idx < ACTS.length-1) navPopup(1);
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closePopup();
+  if(e.key==='ArrowLeft' && idx > 0) navPopup(-1);
+  if(e.key==='ArrowRight' && idx >= 0 && idx < ACTS.length - 1) navPopup(1);
 });
 
 function tog(){
@@ -733,4 +606,5 @@ function tog(){
 
 renderGrid();
 </script>
+
 </body></html>

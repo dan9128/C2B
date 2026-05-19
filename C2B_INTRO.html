@@ -10,13 +10,30 @@
   --gray:#706F72;--gray-deep:#4E4D50;--gray-soft:#F5F5F4;
   --gold:#8C7750;--gold-soft:#F7F3EC;
   --text:#1A1A1A;--text2:#555;--text3:#999;
-  --border:#E8E8E6;--card:#fff;--bg:#F8F7F5;
+  --border:#E8E8E6;--card:#fff;--bg:#ffffff;
   --sidebar-w:232px;
   --r:18px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px;word-break:keep-all}
+body{font-family:'Pretendard',system-ui,sans-serif;background:#ffffff;color:var(--text);line-height:1.8;font-size:15px;word-break:keep-all}
+
+/* ── GLOW ANIMATION ── */
+@keyframes glow-pulse{
+  0%,100%{
+    text-shadow:0 0 6px rgba(227,29,56,.25),0 0 18px rgba(227,29,56,.12);
+    color:#E31D38;
+  }
+  50%{
+    text-shadow:0 0 12px rgba(227,29,56,.55),0 0 32px rgba(227,29,56,.28),0 0 56px rgba(227,29,56,.1);
+    color:#FF2D47;
+  }
+}
+.glow{
+  display:inline;
+  animation:glow-pulse 2.8s ease-in-out infinite;
+  font-weight:inherit;
+}
 
 /* SIDEBAR */
 .sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--card);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s}
@@ -39,14 +56,13 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .sb-btn.sh{left:calc(var(--sidebar-w) + 14px)}
 .sb-btn svg{width:16px;height:16px;stroke:var(--gray);stroke-width:2;fill:none;stroke-linecap:round}
 
-.main{max-width:960px;margin:0 auto;padding:40px 28px 80px calc(var(--sidebar-w) + 28px);transition:padding-left .3s}
+.main{max-width:960px;margin:0 auto;padding:40px 28px 80px calc(var(--sidebar-w) + 28px);transition:padding-left .3s;position:relative;z-index:1}
 .main.exp{padding-left:28px}
 
 /* LAYOUT */
 .pg{margin-bottom:10px}
 .pg-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
 .pg h1{font-size:30px;font-weight:800;letter-spacing:-.04em;color:var(--text);line-height:1.25;margin-bottom:6px}
-
 .divider{height:1px;background:var(--border);margin:32px 0}
 
 /* SECTION */
@@ -54,42 +70,142 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .sec-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* STEPS */
+/* STEPS — 모든 스텝 red left panel */
 .steps{display:flex;flex-direction:column;gap:8px}
-.st{display:grid;grid-template-columns:80px 1fr;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--card);transition:box-shadow .15s}
+.st{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+  background:var(--card);
+  transition:box-shadow .15s;
+}
 .st:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
-.st-left{background:var(--gray-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:20px 0;border-right:1px solid var(--border)}
-.st-n{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--text3)}
+
+/* 모든 st-left → red */
+.st-left{
+  background:var(--red-soft);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;padding:20px 0;
+  border-right:1px solid #F5D0D5;
+}
+.st-n{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--red)}
 .st-icon{font-size:22px}
-.st.hi .st-left{background:var(--red-soft);border-right-color:#F5D0D5}
-.st.hi .st-n{color:var(--red)}
+
 .st-body{padding:20px 24px}
-.st-tag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
-.st.hi .st-tag{color:var(--red)}
+.st-tag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
 .st-body h3{font-size:15px;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1.3;margin-bottom:5px}
 .st-body p{font-size:13px;color:var(--text2);line-height:1.72}
 .st-body p b{color:var(--text);font-weight:700}
 
+/* AFL 카드: 이미지 슬롯 포함 */
+.st-afl{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+  background:var(--card);
+  transition:box-shadow .15s;
+}
+.st-afl:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.st-afl .st-left{
+  background:var(--red-soft);border-right:1px solid #F5D0D5;
+}
+.st-img-slot{
+  width:240px;
+  background:#fff;
+  border-left:1px solid var(--border);
+  display:flex;
+  align-items:center;justify-content:center;
+  padding:12px;
+  position:relative;
+}
+.st-img-slot img{
+  width:100%;
+  height:auto;
+  max-height:200px;
+  object-fit:contain;
+  display:block;
+  border-radius:6px;
+}
+.st-img-slot-label{
+  font-size:10px;font-weight:700;color:var(--text3);
+  letter-spacing:.06em;text-transform:uppercase;
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.st-img-slot-icon{
+  width:32px;height:32px;border-radius:8px;
+  border:1.5px dashed #BDBBB9;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+}
+
 /* IDENTITY CARDS */
 .id-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.id-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 18px;transition:box-shadow .15s}
+.id-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px 18px;
+  transition:box-shadow .15s;
+  border-top:3px solid transparent;
+}
 .id-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}
-.id-k{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.id-card.r{border-top-color:var(--red)}
+.id-card.g{border-top-color:var(--gold)}
+.id-card.d{border-top-color:var(--text)}
+.id-k{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.id-card.r .id-k{color:var(--red)}
+.id-card.g .id-k{color:var(--gold)}
+.id-card.d .id-k{color:var(--text3)}
 .id-v{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.3}
 .id-d{font-size:12px;color:var(--text3);line-height:1.65}
+.id-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 8px;border-radius:999px;margin-bottom:10px;
+}
+.id-badge.r{background:var(--red-soft);color:var(--red)}
+.id-badge.g{background:var(--gold-soft);color:var(--gold)}
+.id-badge.d{background:var(--gray-soft);color:var(--gray)}
 
-/* STRENGTH */
-.str-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.str-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px 22px;transition:box-shadow .15s;border-top:3px solid transparent}
+/* STRENGTH CARDS */
+.str-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.str-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:24px 22px;
+  transition:box-shadow .15s;
+  position:relative;overflow:hidden;
+}
 .str-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}
-.str-card.r{border-top-color:var(--red)}
-.str-card.g{border-top-color:var(--gold)}
-.str-sk{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-.str-card.r .str-sk{color:var(--red)}
-.str-card.g .str-sk{color:var(--gold)}
-.str-card h4{font-size:15px;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1.3;margin-bottom:10px}
-.str-card p{font-size:13px;color:var(--text2);line-height:1.72}
-.str-card p b{color:var(--text);font-weight:700}
+.str-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.str-card.s1::before{background:linear-gradient(90deg,var(--red),var(--red-deep))}
+.str-card.s2::before{background:linear-gradient(90deg,var(--gold),#a8944f)}
+.str-icon{font-size:26px;margin-bottom:12px}
+.str-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 8px;border-radius:999px;margin-bottom:10px;
+}
+.str-card.s1 .str-badge{background:var(--red-soft);color:var(--red)}
+.str-card.s2 .str-badge{background:var(--gold-soft);color:var(--gold)}
+.str-title{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1.3;margin-bottom:8px}
+.str-desc{font-size:13px;color:var(--text2);line-height:1.72}
+.str-bullets{margin-top:10px;display:flex;flex-direction:column;gap:5px}
+.str-bullet{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:12px;color:var(--text2);line-height:1.6;
+}
+.str-dot{
+  width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px;
+}
+.str-card.s1 .str-dot{background:var(--red)}
+.str-card.s2 .str-dot{background:var(--gold)}
+
+@media(max-width:640px){
+  .str-grid{grid-template-columns:1fr}
+}
 
 /* CLOSING */
 .closing{border-top:1px solid var(--border);padding-top:28px;text-align:center}
@@ -98,14 +214,45 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 @media(max-width:860px){
   .main{padding-left:28px}.sidebar{transform:translateX(calc(var(--sidebar-w)*-1))}
   .sb-btn,.sb-btn.sh{left:16px}
+  .st-img-slot{display:none}
 }
 @media(max-width:640px){
-  .id-row,.str-row{grid-template-columns:1fr}
-  .st{grid-template-columns:60px 1fr}
+  .id-row{grid-template-columns:1fr}
+  .st,.st-afl{grid-template-columns:60px 1fr}
+}
+
+  50%{border-radius:50% 50% 30% 70% / 50% 70% 30% 50%}
+  100%{border-radius:70% 30% 50% 50% / 30% 70% 50% 50%}
+}
+
+/* ── 사선 줄무늬 배경 ── */
+.sb-stripe{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 28px,
+    rgba(0,0,0,.022) 28px,
+    rgba(0,0,0,.022) 29px
+  );
+}
+.sb-corner1{
+  position:fixed;top:0;right:0;pointer-events:none;z-index:0;
+  width:480px;height:480px;
+  background:radial-gradient(ellipse at 100% 0%,rgba(227,29,56,.09) 0%,transparent 65%);
+}
+.sb-corner2{
+  position:fixed;bottom:0;left:0;pointer-events:none;z-index:0;
+  width:340px;height:340px;
+  background:radial-gradient(ellipse at 0% 100%,rgba(227,29,56,.06) 0%,transparent 65%);
 }
 </style>
 </head>
-<body data-hh-mode="click">
+<body data-hh-mode="direct">
+<div class="sb-stripe"></div>
+<div class="sb-corner1"></div>
+<div class="sb-corner2"></div>
+
 <button class="sb-btn sh" id="sbb" onclick="tog()">
   <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
 </button>
@@ -125,54 +272,55 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
   </nav>
 </aside>
 
-<div class="main" id="mn" data-hs="">
+<div class="main" id="mn" style="font-family: Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 400; font-style: normal; color: rgb(85, 85, 85); text-decoration: none; line-height: 22.36px; letter-spacing: normal; text-transform: none; text-align: start;">
 
   <div class="pg">
-    <div class="pg-label"><br></div>
-    <h1>팀C2B 소개</h1>
+    <div class="pg-label">&nbsp;</div>
+    <h1 style="font-size: 36px;">팀C2B 소개</h1>
   </div>
 
   <div class="divider"></div>
 
   <div class="sec">
-    <div class="sec-label">팀C2B의 시작</div>
+    <div class="sec-label"><span style="font-size: 13px;"><span style="font-size: 13px;"><span style="font-size: 13px;"><span style="font-size: 15px;"><span style="font-size: 15px;">팀C2B의 시작</span></span></span></span></span></div>
     <div class="steps">
 
-      <div class="st" style="color: rgb(112, 111, 114);">
+      <!-- 01 AFL — 이미지 슬롯 포함 -->
+      <div class="st-afl">
         <div class="st-left">
           <div class="st-n">01</div>
           <div class="st-icon">🔬</div>
         </div>
         <div class="st-body">
-          <div class="st-tag">Future Labs와의 연결</div>
-          <h3>AFL 이 열어준 가능성</h3>
-          <p>지게차를 깊이 들여다보는 과정에서 
-하나의 질문이 생겼습니다.&nbsp;</p><p>지게차 마스트 체인은 반복 하중에 조금씩 늘어나는데,
-이를 벨트로 바꾸면 어떨까?</p>
+          <div class="st-tag"><span class="glow" style="font-size:20px;">연결&nbsp;<font color="#ee233e">&nbsp;</font></span><span style="color: rgb(26, 26, 26); font-size: 17px; letter-spacing: -0.02em;">AFL에서 발견한 가능성</span></div>
+          <p>지게차를 깊이 들여다보는 과정에서 하나의 질문이 생겼습니다.<br>
+          지게차 체인은 반복 하중에 조금씩 늘어나는데,&nbsp;</p><div>이를 벨트로 바꾸면 어떨까?</div><p></p>
+        </div>
+        <div class="st-img-slot">
+          <img src="img/intro1.png" alt="AFL Future Labs">
         </div>
       </div>
 
-      <div class="st hi">
+      <!-- 02 확장 -->
+      <div class="st">
         <div class="st-left">
           <div class="st-n">02</div>
           <div class="st-icon">💡</div>
         </div>
-        <div class="st-body" style="color: rgb(112, 111, 114);">
-          <div class="st-tag">비즈니스 팀으로 확장</div>
-          <h3>질문에서 시작된 비즈니스 도전</h3>
-          <p>DRB의 고유 기술로 새로운 시장을 연구하기 시작했습니다.&nbsp;</p><div style="font-size: 13px;">하중 지지와 반복 승강, 그 자리를 Carbon PU 벨트로 대체할 수 있다는 가설이었습니다.</div><p></p>
+        <div class="st-body">
+<div class="st-tag"><span class="glow" style="font-size:20px;">확장<font color="#fb2b45">&nbsp;&nbsp;</font></span><span style="color: rgb(26, 26, 26); font-size: 15px; letter-spacing: -0.02em;"><span style="font-size: 17px;">가능성에서 탄생한 노드 : C2B</span></span></div>
+          <p>하중 지지와 반복 승강 -&nbsp; 체인이 하던 그 자리를 Carbon PU 벨트로 대체할 수 있다는 가설 하나가 FUTURE LABS C2B를 만들었습니다.</p>
         </div>
       </div>
 
+      <!-- 03 시작 -->
       <div class="st">
         <div class="st-left">
           <div class="st-n">03</div>
           <div class="st-icon">🚀</div>
         </div>
-        <div class="st-body" style="font-size: 13px; color: rgb(112, 111, 114);">
-          <div class="st-tag">팀C2B의 시작</div>
-          <h3>공감한 사람들의 자발적 참여</h3>
-          <p>질문에 공감한 사람들이 스스로 모였습니다.</p><div>현장의 질문에서 탄생한 팀입니다.</div><div>Chain 시장을 탐구하고 Belt 진입을 실현합니다.</div><p></p>
+        <div class="st-body">
+<div class="st-tag"><span class="glow" style="font-size:20px;">시작&nbsp;&nbsp;</span><span style="color: rgb(26, 26, 26); font-size: 15px; letter-spacing: -0.02em;"><span style="font-size: 17px;">비즈니스 팀의 시작</span></span></div>가능성에 공감한 사람들이 스스로 모였습니다.<br>팀C2B는 FUTURE LABS의 연구를 시장으로 연결하는 비즈니스 팀입니다.<p></p>
         </div>
       </div>
 
@@ -180,39 +328,55 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
   </div>
 
   <div class="sec">
-    <div class="sec-label">팀 정체성</div>
+    <div class="sec-label"><span style="font-size: 13px;"><span style="font-size: 13px;"><span style="font-size: 15px;">팀C2B의 정체성</span></span></span></div>
     <div class="id-row">
-      <div class="id-card">
-        <div class="id-k">발의 방식</div>
-        <div class="id-v">Future Labs 출발</div>
-        <div class="id-d">Future Labs 연구에서 시작된 현장 기반 비즈니스 문제 정의</div>
+
+      <div class="id-card r">
+        <div class="id-badge r">출발점</div>
+        <div class="id-v">Bottom-Up으로 시작</div>
+        <div class="id-d">C2B는 현장의 관찰에서 출발했습니다. 지게차를 직접 들여다보는 과정에서 생긴 질문이 사업의 씨앗이 됐습니다.</div>
       </div>
-      <div class="id-card">
-        <div class="id-k">팀 성격</div>
-        <div class="id-v">비즈니스 팀C2B</div>
-        <div class="id-d">사업화 가능성을 직접 검증하는 자발적 내부 비즈니스팀</div>
+
+      <div class="id-card g">
+        <div class="id-badge g">구성 방식</div>
+        <div class="id-v">자발적 참여</div>
+        <div class="id-d">공감한 사람들이 스스로 모였습니다. 의지로 구성된 팀으로, 가능성을 직접 검증합니다.</div>
       </div>
-      <div class="id-card">
-        <div class="id-k">최종 목표</div>
+
+      <div class="id-card d">
+        <div class="id-badge d">최종 목표</div>
         <div class="id-v">C2B 사업화</div>
-        <div class="id-d">체인 → 벨트 전환 시장을 DRB의 신규 매출원으로</div>
+        <div class="id-d" data-hs="">비즈니스 실현을 목표로 합니다.<div>가설을 현장으로, 현장을 비즈니스로 만듭니다.</div></div>
       </div>
+
     </div>
   </div>
 
   <div class="sec">
-    <div class="sec-label">구조적 강점</div>
-    <div class="str-row">
-      <div class="str-card r">
-        <div class="str-sk">사업화 근거리</div>
-        <h4>사업화에 가까이 있습니다</h4>
-        <p>막연한 트렌드가 아닌 <b>특정 필요</b>에서 출발했습니다. 경쟁사 분석, 실차 테스트, 채널 구축이 진행 중입니다.</p>
+    <div class="sec-label"><span style="font-size: 15px;">팀C2B의 강점</span></div>
+    <div class="str-grid">
+
+      <div class="str-card s1">
+        <div class="str-icon">🎯</div>
+
+        <div class="str-title">사업화에 가장 가까운 팀</div>
+        <div class="str-bullets">
+          <div class="str-bullet"><span class="str-dot"></span><span><b><span style="font-weight: normal;">기존 체인 시장을 대상으로 수요 공략&nbsp;</span></b></span></div>
+          <div class="str-bullet"><span class="str-dot"></span><span>실차 테스트와 데이터 기반 사업 접근 가능</span></div>
+          <div class="str-bullet"><span><br></span></div>
+        </div>
       </div>
-      <div class="str-card g">
-        <div class="str-sk">벨트사업부문 연결</div>
-        <h4>우리의 기술이 새로운 시장에 연결됩니다</h4>
-        <p><b><span style="color: rgb(85, 85, 85); font-weight: 400;">생산 역량과 품질 기반이 이미 확보되어 있습니다.</span></b>&nbsp;</p><p>DRB가 체인 시장에 접근합니다.</p>
+
+      <div class="str-card s2">
+        <div class="str-icon">🔗</div>
+
+        <div class="str-title">벨트사업부문과의 연결</div>
+        <div class="str-bullets">
+          <div class="str-bullet"><span class="str-dot"></span><span>생산, 품질 인프라 기반 사업 전개 가능</span></div>
+          <div class="str-bullet"><span class="str-dot"></span><span>기존 벨트 기술의 신규 시장으로 확장&nbsp;</span></div>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -228,6 +392,5 @@ function tog(){
   s.classList.toggle('closed');m.classList.toggle('exp');b.classList.toggle('sh');
 }
 </script>
-
 
 </body></html>

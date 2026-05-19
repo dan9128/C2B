@@ -9,56 +9,112 @@
 html,body{height:100%;overflow:hidden}
 body{
   font-family:'Pretendard',system-ui,sans-serif;
-  background:#F8F7F5;
+  background:#ffffff;
   color:#1A1A1A;
-  display:flex;align-items:center;justify-content:center;
   min-height:100vh;
 }
 
-.blob{position:fixed;pointer-events:none;border-radius:50%}
-.b1{width:560px;height:560px;top:-180px;right:-140px;
-    background:radial-gradient(ellipse,rgba(227,29,56,.06) 0%,transparent 70%)}
-.b2{width:360px;height:360px;bottom:-100px;left:-80px;
-    background:radial-gradient(ellipse,rgba(140,119,80,.05) 0%,transparent 70%)}
-
-.frame{
-  position:fixed;inset:24px;
-  border:1px solid rgba(0,0,0,.06);
-  border-radius:28px;
-  pointer-events:none;
+/* ── 레이아웃 ── */
+.layout{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  height:100vh;
 }
 
-.center{
-  position:relative;z-index:1;
-  display:flex;flex-direction:column;
-  align-items:flex-start;
-  padding:0 48px;
-  max-width:600px;
-  width:100%;
+/* ── 왼쪽 텍스트 ── */
+.left{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:0 56px 0 64px;
   animation:up .75s cubic-bezier(.16,1,.3,1) both;
 }
 @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
+/* ── 오른쪽 이미지 ── */
+.right{
+  position:relative;
+  overflow:hidden;
+}
+.right::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to right,
+    #ffffff 0%,
+    rgba(255,255,255,0.55) 22%,
+    rgba(255,255,255,0) 44%
+  );
+  z-index:1;
+  pointer-events:none;
+}
+.right::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.5) 0%,
+    rgba(255,255,255,0) 25%,
+    rgba(255,255,255,0) 70%,
+    rgba(255,255,255,0.6) 100%
+  );
+  z-index:1;
+  pointer-events:none;
+}
+.right img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 40%;
+  display:block;
+  animation:imgIn 1.1s cubic-bezier(.16,1,.3,1) .1s both;
+  filter:saturate(1.05) contrast(1.02);
+}
+@keyframes imgIn{
+  from{opacity:0;transform:scale(1.04)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* ── 프레임 ── */
+.frame{
+  position:fixed;inset:20px;
+  border:1px solid rgba(0,0,0,.07);
+  border-radius:28px;
+  pointer-events:none;
+  z-index:10;
+}
+
+/* ── 블롭 ── */
+.blob{position:fixed;pointer-events:none;border-radius:50%}
+.b1{width:400px;height:400px;top:-120px;left:30%;
+    background:radial-gradient(ellipse,rgba(227,29,56,.05) 0%,transparent 70%)}
+
+/* ── 텍스트 요소 ── */
 .wordmark{
   font-size:11px;font-weight:800;letter-spacing:.22em;
   text-transform:uppercase;color:#BDBBB9;
-  margin-bottom:52px;
+  margin-bottom:48px;
   display:flex;align-items:center;gap:12px;
 }
 .wordmark::after{content:'';width:28px;height:1px;background:#E0DFDD}
 
 .title{
-  font-size:clamp(72px,10vw,108px);
+  font-size:clamp(64px,8.5vw,100px);
   font-weight:900;letter-spacing:-.07em;line-height:.9;
   color:#1A1A1A;
 }
-.title em{color:#E31D38;font-style:normal}
 
 .row{
   display:flex;align-items:center;gap:14px;
-  margin:22px 0 32px;
+  font-size:20px;
+  margin:22px 0 30px;
 }
-.tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#BDBBB9}
+.tag{font-size:26px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#BDBBB9}
 .arrow{
   display:flex;align-items:center;
   width:36px;height:1px;background:#E31D38;position:relative;
@@ -69,7 +125,7 @@ body{
   border-left:6px solid #E31D38;
 }
 
-.sub{font-size:15px;color:#888;line-height:1.8;font-weight:500;margin-bottom:52px}
+.sub{font-size:18px;color:#888;line-height:1.8;font-weight:500;margin-bottom:48px;max-width:800px;white-space:normal;overflow:visible;text-overflow:clip}
 
 .btn{
   display:inline-flex;align-items:center;gap:10px;
@@ -80,40 +136,75 @@ body{
   text-decoration:none;letter-spacing:.02em;
   transition:all .22s cubic-bezier(.16,1,.3,1);
   box-shadow:0 4px 16px rgba(0,0,0,.1);
+  width:fit-content;
 }
 .btn:hover{background:#E31D38;transform:translateY(-2px);box-shadow:0 8px 24px rgba(227,29,56,.25)}
 .btn:hover .bi{transform:translateX(3px)}
 .bi{width:14px;height:14px;stroke:currentColor;stroke-width:2.2;fill:none;transition:transform .18s}
 
 .meta{
-  position:fixed;bottom:36px;left:0;right:0;text-align:center;
-  font-size:11px;color:#C8C7C5;letter-spacing:.07em;font-weight:600;z-index:1;
+  position:fixed;bottom:34px;left:0;right:0;text-align:center;
+  font-size:11px;color:#C8C7C5;letter-spacing:.07em;font-weight:600;z-index:11;
+}
+
+  50%{border-radius:50% 50% 30% 70% / 50% 70% 30% 50%}
+  100%{border-radius:70% 30% 50% 50% / 30% 70% 50% 50%}
+}
+
+/* ── 사선 줄무늬 배경 ── */
+.sb-stripe{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 28px,
+    rgba(0,0,0,.022) 28px,
+    rgba(0,0,0,.022) 29px
+  );
+}
+.sb-corner1{
+  position:fixed;top:0;right:0;pointer-events:none;z-index:0;
+  width:480px;height:480px;
+  background:radial-gradient(ellipse at 100% 0%,rgba(227,29,56,.09) 0%,transparent 65%);
+}
+.sb-corner2{
+  position:fixed;bottom:0;left:0;pointer-events:none;z-index:0;
+  width:340px;height:340px;
+  background:radial-gradient(ellipse at 0% 100%,rgba(227,29,56,.06) 0%,transparent 65%);
 }
 </style>
 </head>
 <body data-hh-mode="direct">
+<div class="sb-stripe"></div>
+<div class="sb-corner1"></div>
+<div class="sb-corner2"></div>
 
-<div class="blob b1"></div>
-<div class="blob b2"></div>
 <div class="frame"></div>
 
-<div class="center">
-  <div class="wordmark">DRB Industrial</div>
-  <div class="title" style="color: rgb(227, 29, 56);">DRB <span style="color: #000;">팀C2B</span></div>
-  <div class="row">
-    <span class="tag">Chain</span>
-    <span class="arrow"></span>
-    <span class="tag">Belt</span>
+<div class="layout">
+  <!-- 왼쪽: 텍스트 -->
+  <div class="left" style="color: rgb(227, 29, 56);">
+    <div class="wordmark">DRB Industrial</div>
+    <div class="title" style="color:#E31D38;">DRB <span style="color:#1A1A1A;">팀C2B</span></div>
+    <div class="row">
+      <span class="tag">Chain</span>
+      <span class="arrow"></span>
+      <span class="tag">Belt</span>
+    </div>
+<p class="sub" data-hs=""><span style="color:#E31D38;"><b>연결</b></span>과 <span style="color:#E31D38;"><b>확장</b></span>을 기반으로, 기술의 가능성을 비즈니스로 실현합니다.</p>
+    <a class="btn" href="C2B_INTRO.html">
+      시작하기
+      <svg class="bi" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+    </a>
   </div>
-  <p class="sub" data-hs=""><span style="color: #e31d38; font-weight: 700;">FUTURE LABS</span>와 연결하여, 기술의 가능성을 비즈니스로 실현합니다.</p>
-  <a class="btn" href="C2B_INTRO.html">
-    시작하기
-    <svg class="bi" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
-  </a>
+
+  <!-- 오른쪽: 이미지 -->
+  <div class="right">
+    <img src="img/index1.png" alt="Chain to Belt Conversion">
+  </div>
 </div>
 
 <div class="meta">DRB 팀C2B &nbsp;·&nbsp; 2026</div>
-
 
 
 </body></html>

@@ -2,27 +2,30 @@
 <html lang="ko"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interlude — DRB C2B</title>
+<title>활동내역 — DRB 팀C2B</title>
 <link href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
 <style>
 :root{
-  --red:#E31D38;--red-soft:#FDF0F1;
+  --red:#E31D38;--red-soft:#FDF0F1;--red-border:rgba(227,29,56,.18);
   --gray:#706F72;--gray-soft:#F5F5F4;
-  --gold:#8C7750;--gold-soft:#F7F3EC;
+  --gold:#8C7750;
   --text:#1A1A1A;--text2:#555;--text3:#999;
-  --border:#E8E8E6;--card:#fff;--bg:#F8F7F5;
+  --border:#EBEBEA;--card:#fff;
   --sidebar-w:232px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;word-break:keep-all}
+body{
+  font-family:'Pretendard',system-ui,sans-serif;
+  background:#ffffff;
+  color:var(--text);font-size:15px;word-break:keep-all
+}
 
 /* SIDEBAR */
-.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--card);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s}
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:#fff;border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s}
 .sidebar.closed{transform:translateX(calc(var(--sidebar-w)*-1))}
 .sb-head{padding:28px 22px 20px;border-bottom:1px solid var(--border)}
 .sb-logo-wrap{text-decoration:none;display:block}
-.sb-logo{font-size:18px;font-weight:900;letter-spacing:-.04em;color:var(--red);transition:opacity .15s}
-.sb-logo-wrap:hover .sb-logo{opacity:.7}
+.sb-logo{font-size:18px;font-weight:900;letter-spacing:-.04em;color:var(--red)}
 .sb-logo span{color:var(--gray)}
 .sb-sub{font-size:11px;color:var(--text3);margin-top:4px}
 .sb-nav{flex:1;overflow-y:auto;padding:20px 14px}
@@ -32,122 +35,142 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .nav-a.active{background:var(--red-soft);color:var(--red);font-weight:800}
 .nav-n{width:22px;height:22px;border-radius:7px;background:var(--gray-soft);color:var(--text3);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .nav-a.active .nav-n{background:var(--red);color:#fff}
-.sb-btn{position:fixed;top:16px;left:16px;z-index:200;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:left .3s}
+.sb-btn{position:fixed;top:16px;left:16px;z-index:200;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:left .3s}
 .sb-btn.sh{left:calc(var(--sidebar-w) + 14px)}
 .sb-btn svg{width:16px;height:16px;stroke:var(--gray);stroke-width:2;fill:none;stroke-linecap:round}
 
-.main{max-width:860px;margin:0 auto;padding:40px 32px 80px calc(var(--sidebar-w) + 32px);transition:padding-left .3s}
+.main{max-width:960px;margin:0 auto;padding:40px 32px 80px calc(var(--sidebar-w) + 32px);transition:padding-left .3s}
 .main.exp{padding-left:32px}
 
-/* HEADER */
 .pg-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
 .pg h1{font-size:30px;font-weight:800;letter-spacing:-.04em;color:var(--text);line-height:1.25;margin-bottom:6px}
-.pg p{font-size:14px;color:var(--text3);line-height:1.7}
 .divider{height:1px;background:var(--border);margin:28px 0}
 
-/* ── VERTICAL TIMELINE ── */
-.tl{
-  display:grid;
-  /* month col | line col | content col */
-  grid-template-columns:72px 40px 1fr;
-  row-gap:0;
+/* YEAR BAND */
+.yr-band{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.yr-badge{font-size:11px;font-weight:900;letter-spacing:.12em;padding:4px 12px;border-radius:999px;background:var(--text);color:#fff}
+.yr-badge.now{background:var(--red)}
+.yr-line{flex:1;height:1px;background:var(--border)}
+
+/* CARD GRID */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+
+.ac{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:20px 18px 16px;
+  transition:box-shadow .18s, transform .18s;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.ac:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+.ac::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border);transition:background .2s}
+.ac.done::before{background:#DDDBD8}
+.ac.now-card::before{background:var(--red)}
+.ac.now-card{border-color:var(--red-border);background:linear-gradient(135deg,rgba(227,29,56,.02) 0%,#fff 60%)}
+
+/* Month chip */
+.ac-month{display:inline-flex;align-items:baseline;gap:4px;margin-bottom:10px}
+.ac-m{font-size:28px;font-weight:900;letter-spacing:-.05em;color:var(--text);line-height:1}
+.ac-m.red{color:var(--red)}
+.ac-yr{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.04em}
+.ac-tag{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.ac-tag.r{color:var(--red)}
+.ac-title{font-size:13px;font-weight:800;color:var(--text);line-height:1.35;margin-bottom:5px}
+.ac-title.r{color:var(--red)}
+.ac-desc{font-size:12px;color:var(--text2);line-height:1.7;flex:1}
+
+/* ── 인사이트 한 줄 ── */
+.ac-insight{
+  display:flex;align-items:center;gap:7px;
+  margin-top:12px;
+  padding:7px 11px;
+  background:#F1F0EE;
+  border-radius:8px;
+  font-size:11.5px;font-weight:600;
+  color:#3A3938;
+  line-height:1.5;
+}
+.ac-insight::before{
+  content:'';
+  width:6px;height:6px;border-radius:50%;
+  background:var(--red);
+  flex-shrink:0;
+  opacity:.85;
 }
 
-/* ── MONTH STAMP ── */
-.t-month{
-  padding-top:2px;
-  text-align:right;
-  padding-right:0;
-}
-.t-yr{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.04em;line-height:1;display:block}
-.t-num{font-size:26px;font-weight:900;letter-spacing:-.05em;color:var(--text);line-height:1.1;display:block}
-.t-num.now{color:var(--red)}
-
-/* ── CENTER AXIS ── */
-.t-axis{
-  display:flex;flex-direction:column;align-items:center;
-  position:relative;
-}
-.t-dot{
-  width:12px;height:12px;border-radius:50%;
-  background:var(--card);border:2px solid var(--border);
-  flex-shrink:0;margin-top:4px;
-  transition:border-color .2s,background .2s;
-  z-index:1;
-}
-.t-dot.on{background:var(--red);border-color:var(--red);box-shadow:0 0 0 4px rgba(227,29,56,.12)}
-.t-dot.done{background:var(--card);border-color:#BDBBB9}
-.t-line{
-  width:1px;flex:1;
-  background:linear-gradient(180deg,var(--border) 0%,var(--border) 100%);
-  min-height:16px;
-}
-/* last item has no line */
-.tl-row:last-child .t-line{background:transparent}
-
-/* ── CONTENT ── */
-.t-content{
-  padding:0 0 28px 20px;
-}
-
-/* placeholder card */
-.t-card{
-  background:var(--card);
-  border:1px dashed var(--border);
-  border-radius:14px;
-  padding:16px 18px;
-  transition:border-color .2s,box-shadow .2s;
-}
-.t-card.filled{
-  border-style:solid;border-color:var(--border);
-}
-.t-card.filled:hover{
-  border-color:#DDDBD9;
-  box-shadow:0 4px 16px rgba(0,0,0,.07);
-}
-.t-card.now-card{
-  border-style:solid;
-  border-color:rgba(227,29,56,.2);
-  background:rgba(227,29,56,.02);
-}
-.t-tag{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
-.t-tag.r{color:var(--red)}
-.t-tag.g{color:var(--gray)}
-.t-tag.o{color:var(--gold)}
-.t-card h4{font-size:14px;font-weight:800;color:var(--text);line-height:1.3;margin-bottom:4px}
-.t-card p{font-size:13px;color:var(--text2);line-height:1.7}
-.t-card.ph h4{color:var(--text3)}
-.t-card.ph p{color:#D0D0CE}
-
-/* now badge */
-.now-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--red);background:var(--red-soft);border:1px solid rgba(227,29,56,.2);
-  padding:2px 8px;border-radius:999px;margin-bottom:6px;
-}
+/* NOW badge */
+.now-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:var(--red-soft);border:1px solid rgba(227,29,56,.2);padding:2px 8px;border-radius:999px;margin-bottom:8px}
 .now-pulse{width:5px;height:5px;border-radius:50%;background:var(--red);animation:pulse 1.6s ease infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
 
-/* row wrapper just for last-child targeting */
-.tl-row{display:contents}
+/* NOW full-width card */
+.ac.now-full{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:24px;
+  align-items:center;
+  padding:24px 28px;
+}
+.ac.now-full .now-left{display:flex;flex-direction:column}
+.ac.now-full .now-right{border-left:1px solid var(--red-border);padding-left:24px}
+.ac.now-full .ac-m{font-size:52px;letter-spacing:-.06em}
+/* NOW 카드 인사이트 줄 별도 처리 */
+.ac.now-full .ac-insight{
+  margin-top:12px;
+  grid-column:1/-1;
+  background:rgba(227,29,56,.08);
+  color:#2A1014;
+}
+.ac.now-full .ac-insight::before{
+  background:var(--red);opacity:1;
+}
 
 @media(max-width:860px){.main{padding-left:32px}.sidebar{transform:translateX(calc(var(--sidebar-w)*-1))}.sb-btn,.sb-btn.sh{left:16px}}
-@media(max-width:520px){
-  .tl{grid-template-columns:56px 36px 1fr}
-  .t-num{font-size:20px}
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr 1fr}
+  .ac.now-full{grid-template-columns:1fr}
+  .ac.now-full .now-right{border-left:none;border-top:1px solid var(--red-border);padding-left:0;padding-top:16px;margin-top:8px}
+}
+
+  50%{border-radius:50% 50% 30% 70% / 50% 70% 30% 50%}
+  100%{border-radius:70% 30% 50% 50% / 30% 70% 50% 50%}
+}
+
+/* ── 사선 줄무늬 배경 ── */
+.sb-stripe{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 28px,
+    rgba(0,0,0,.022) 28px,
+    rgba(0,0,0,.022) 29px
+  );
+}
+.sb-corner1{
+  position:fixed;top:0;right:0;pointer-events:none;z-index:0;
+  width:480px;height:480px;
+  background:radial-gradient(ellipse at 100% 0%,rgba(227,29,56,.09) 0%,transparent 65%);
+}
+.sb-corner2{
+  position:fixed;bottom:0;left:0;pointer-events:none;z-index:0;
+  width:340px;height:340px;
+  background:radial-gradient(ellipse at 0% 100%,rgba(227,29,56,.06) 0%,transparent 65%);
 }
 </style>
 </head>
 <body data-hh-mode="direct">
+<div class="sb-stripe"></div>
+<div class="sb-corner1"></div>
+<div class="sb-corner2"></div>
+
 <button class="sb-btn sh" id="sbb" onclick="tog()">
   <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
 </button>
 <aside class="sidebar" id="sb">
   <div class="sb-head">
-    <a href="index.html" class="sb-logo-wrap">
-      <div class="sb-logo">DRB <span>팀C2B</span></div>
-    </a>
+    <a href="index.html" class="sb-logo-wrap"><div class="sb-logo">DRB <span>팀C2B</span></div></a>
     <div class="sb-sub">Chain to Belt 전환 프로젝트</div>
   </div>
   <nav class="sb-nav">
@@ -162,156 +185,95 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 <div class="main" id="mn">
 
   <div class="pg">
-    <div class="pg-label"><br></div>
-    <h1>팀C2B 활동내역</h1>
-    <p><br></p>
+    <div class="pg-label">&nbsp;</div>
+    <h1 style="font-size: 36px;">팀C2B 활동내역</h1>
   </div>
-
   <div class="divider"></div>
 
-  <div class="tl">
+  <!-- 2025 -->
+      <div class="yr-band">
+        <span class="yr-badge" style="background:var(--red)">2025</span>
+        <div class="yr-line"></div>
+      </div>
 
-    <!-- 2025년 10월 -->
-    <div class="tl-row">
-      <div class="t-month">
-        <span class="t-yr">2025</span>
-        <span class="t-num">10</span>
+  <div class="grid">
+
+    <div class="ac done">
+      <div class="ac-month"><span class="ac-yr" style="font-size: 20px;"><br></span><span class="ac-m">10 월</span></div>
+      <div class="ac-tag r"><span style="font-size: 13px;">팀 C2B 킥오프</span></div>
+      <div class="ac-desc">비즈니스 팀 생태계 진입<br>지게차 시장 1차 타겟 결정</div>
+      <div class="ac-insight">체인을 벨트로 바꿀 시장이 존재한다는 첫 공감</div>
+    </div>
+
+    <div class="ac done">
+      <div class="ac-month"><span class="ac-yr"><br></span><span class="ac-m">11 월</span></div>
+      <div class="ac-tag"><span style="color: rgb(227, 29, 56); font-size: 13px;">국내 체인 시장 조사</span></div>
+      <div class="ac-desc">리프트체인 안전기준 및 법규 조사</div>
+      <div class="ac-insight">국내 체인 유통 구조 분석을 통한 시장 진입 기반 검토</div>
+    </div>
+
+    <div class="ac done">
+      <div class="ac-month"><span class="ac-yr"><br></span><span class="ac-m">12 월</span></div>
+      <div class="ac-tag"><span style="color: rgb(227, 29, 56); font-size: 13px;">경쟁사 현황 조사</span></div>
+      <div class="ac-desc">Future Labs 개발 로드맵 공유</div>
+      <div class="ac-insight">경쟁사 현황 조사를 통한 경쟁력 및 시장 진입 방향 검토</div>
+    </div>
+
+  </div>
+
+  <!-- 2026 -->
+  <div class="yr-band">
+    <span class="yr-badge now" style="background:var(--red)">2026</span>
+    <div class="yr-line"></div>
+  </div>
+
+  <div class="grid">
+
+    <div class="ac done">
+      <div class="ac-month"><span class="ac-yr"><br></span><span class="ac-m">1 월</span></div>
+      <div class="ac-tag"><span style="color: rgb(227, 29, 56); font-size: 13px;">어플리케이션별 전환 가능성 분석</span></div>
+      <div class="ac-desc">무급유 체인 vs 벨트 비교<br>스태커 실차테스트 로드맵 공유</div>
+      <div class="ac-insight">어플리케이션 조사를 통한 시장 이해도 제고</div>
+    </div>
+
+    <div class="ac done">
+      <div class="ac-month"><span class="ac-yr"><br></span><span class="ac-m">2월</span></div>
+      <div class="ac-tag"><span style="color: rgb(227, 29, 56); font-size: 13px;">미래성장토론 및 향후 계획 수립</span></div>
+      <div class="ac-desc">체인 시장 정리<br>풀리 시장 조사 시작</div>
+      <div class="ac-insight">토론을 통한 방향성 구체화</div>
+    </div>
+
+    <div class="ac done">
+      <div class="ac-month"><span class="ac-yr"><br></span><span class="ac-m">3월</span></div>
+      <div class="ac-tag"><span style="color: rgb(227, 29, 56); font-size: 13px;">Carbon PU 벨트 하중·규격 대응 검토</span></div>
+      <div class="ac-desc">체인 국제 규격 조사</div>
+      <div class="ac-insight">기술적 전환 가능성 확인</div>
+    </div>
+
+    <div class="ac done">
+      <div class="ac-month"><span class="ac-yr"><br></span><span class="ac-m">4월</span></div>
+      <div class="ac-tag"><span style="color: rgb(227, 29, 56); font-size: 13px;">DRB 특약점 방문</span></div>
+      <div class="ac-desc">체인 채택 이유 직접 청취<br>시장 접근 방향성 재검토</div>
+      <div class="ac-insight" data-hs="">실사용자의 체인 사용 이유 청취</div>
+    </div>
+
+    <!-- NOW -->
+    <div class="ac now-card now-full">
+      <div class="now-left">
+        <span class="ac-yr" style="color:var(--red);font-weight:800;letter-spacing:.06em">NOW</span>
+        <span class="ac-m red">05</span>
       </div>
-      <div class="t-axis">
-        <div class="t-dot done"></div>
-        <div class="t-line"></div>
-      </div>
-      <div class="t-content">
-        <div class="t-card ph">
-          <div class="t-tag"><span style="font-size: 14px; color: rgb(0, 0, 0);">킥오프</span></div>
-          <p style="color: rgb(227, 29, 56);"><b>팀 C2B 킥오프</b></p><div style="font-size: 13px; color: rgb(112, 111, 114); font-family: Pretendard, system-ui, sans-serif; font-weight: 400; font-style: normal; text-decoration: none; line-height: 22.1px; letter-spacing: normal; text-transform: none; text-align: start;">비즈니스 팀 생태계 진입</div><div style="color: rgb(112, 111, 114); font-family: Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 400; font-style: normal; text-decoration: none; line-height: 22.1px; letter-spacing: normal; text-transform: none; text-align: start;">지게차 시장 1차 타겟 결정</div><p></p>
-        </div>
+      <div class="now-right">
+        <div class="now-badge"><span class="now-pulse"></span>진행 중</div>
+        <div class="ac-tag r">BIZ DAY</div>
+        <div class="ac-title r" style="font-size:15px">팀C2B 진행사항 공유</div>
+        <div class="ac-desc">하반기 진행방향 및 계획 수립</div>
+        <div class="ac-insight">7개월의 탐색이 하나의 질문으로 수렴되는 시점</div>
       </div>
     </div>
 
-    <!-- 2025년 11월 -->
-    <div class="tl-row">
-      <div class="t-month">
-        <span class="t-yr">2025</span>
-        <span class="t-num">11</span>
-      </div>
-      <div class="t-axis">
-        <div class="t-dot done"></div>
-        <div class="t-line"></div>
-      </div>
-      <div class="t-content" style="color: rgb(0, 0, 0); font-size: 14px;">
-        <div class="t-card ph">
-          <div class="t-tag"><span style="font-size: 14px; font-family: Pretendard, system-ui, sans-serif; font-weight: 800; font-style: normal; color: rgb(0, 0, 0); text-decoration: none; line-height: normal; letter-spacing: 1px; text-transform: uppercase; text-align: start;">시장조사</span></div>
-          <p style="font-family: Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 400; font-style: normal; color: rgb(227, 29, 56); text-decoration: none; line-height: 22.1px; letter-spacing: normal; text-transform: none; text-align: start;"><b>국내 체인 시장 조사</b></p><div style="font-family: Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 400; font-style: normal; color: rgb(227, 29, 56); text-decoration: none; line-height: 22.1px; letter-spacing: normal; text-transform: none; text-align: start;"><b></b></div><div style="font-family: Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 400; font-style: normal; color: rgb(112, 111, 114); text-decoration: none; line-height: 22.1px; letter-spacing: normal; text-transform: none; text-align: start;">리프트체인 안전기준 및 법규 조사</div><p></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2025년 12월 -->
-    <div class="tl-row">
-      <div class="t-month">
-        <span class="t-yr">2025</span>
-        <span class="t-num">12</span>
-      </div>
-      <div class="t-axis">
-        <div class="t-dot done"></div>
-        <div class="t-line"></div>
-      </div>
-      <div class="t-content">
-        <div class="t-card ph">
-          <div class="t-tag"><div class="t-tag" style="color: rgb(153, 153, 153);"><span style="font-size: 14px; color: rgb(0, 0, 0);">킥오프</span></div><p style="color: rgb(112, 111, 114); font-weight: 400; letter-spacing: normal; text-transform: none;"><b data-hh-editing="" style="color: rgb(227, 29, 56);">경쟁사 현황 조사</b></p><div style="font-weight: 400; letter-spacing: normal; text-transform: none; font-size: 13px; color: rgb(112, 111, 114); line-height: 22.1px;">Future Labs 개발 로드맵 공유</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2026년 1월 -->
-    <div class="tl-row" style="color: rgb(227, 29, 56);">
-      <div class="t-month">
-        <span class="t-yr">2026</span>
-        <span class="t-num">01</span>
-      </div>
-      <div class="t-axis">
-        <div class="t-dot done"></div>
-        <div class="t-line"></div>
-      </div>
-      <div class="t-content">
-        <div class="t-card ph">
-          <div class="t-tag"><div class="t-tag" style="color: rgb(153, 153, 153);"><span style="font-size: 14px; color: rgb(0, 0, 0);">심화분석</span></div><p style="color: rgb(227, 29, 56); font-weight: 400; letter-spacing: normal; text-transform: none;"><b>어플리케이션별 전환 가능성 분석</b></p><p style="color: rgb(112, 111, 114); font-weight: 400; letter-spacing: normal; text-transform: none;">무급유 체인 vs 벨트 비교</p><p style="color: rgb(112, 111, 114); font-weight: 400; letter-spacing: normal; text-transform: none;">스태커 실차테스트 로드맵 공유</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2026년 2월 -->
-    <div class="tl-row">
-      <div class="t-month">
-        <span class="t-yr">2026</span>
-        <span class="t-num">02</span>
-      </div>
-      <div class="t-axis">
-        <div class="t-dot done"></div>
-        <div class="t-line"></div>
-      </div>
-      <div class="t-content">
-        <div class="t-card ph">
-          <div class="t-tag"><div class="t-tag" style="color: rgb(153, 153, 153);"><span style="font-size: 14px; color: rgb(0, 0, 0);">미래성장토론 및 향후 계획 수립</span></div><p style="color: rgb(112, 111, 114); font-weight: 400; letter-spacing: normal; text-transform: none;">체인 시장 정리</p><p style="color: rgb(112, 111, 114); font-weight: 400; letter-spacing: normal; text-transform: none;" data-hs="">풀리 시장 조사 시작</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2026년 3월 -->
-    <div class="tl-row">
-      <div class="t-month">
-        <span class="t-yr">2026</span>
-        <span class="t-num">03</span>
-      </div>
-      <div class="t-axis">
-        <div class="t-dot done"></div>
-        <div class="t-line"></div>
-      </div>
-      <div class="t-content" style="font-family: Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 400; font-style: normal; color: rgb(112, 111, 114); text-decoration: none; line-height: 22.1px; letter-spacing: normal; text-transform: none; text-align: start;">
-        <div class="t-card ph" style="color: rgb(227, 29, 56);">
-          <div class="t-tag"><div class="t-tag" style="color: rgb(153, 153, 153);"><span style="font-size: 14px; color: rgb(0, 0, 0);">기술검토</span></div><p style="color: rgb(227, 29, 56); font-weight: 400; letter-spacing: normal; text-transform: none;"><b>Carabon PU 벨트 하중·규격 대응 가능 여부 기술 검토</b><div style="color: rgb(112, 111, 114); font-family: Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 400; font-style: normal; text-decoration: none; line-height: 22.1px; letter-spacing: normal; text-transform: none; text-align: start;">체인 국제 규격 조사</div></p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2026년 4월 -->
-    <div class="tl-row">
-      <div class="t-month">
-        <span class="t-yr">2026</span>
-        <span class="t-num">04</span>
-      </div>
-      <div class="t-axis">
-        <div class="t-dot done"></div>
-        <div class="t-line"></div>
-      </div>
-      <div class="t-content">
-        <div class="t-card ph">
-          <div class="t-tag"><div class="t-tag" style="color: rgb(153, 153, 153);"><span style="font-size: 14px; color: rgb(0, 0, 0);">현장조사</span></div><p style="color: rgb(227, 29, 56); font-weight: 400; letter-spacing: normal; text-transform: none;"><b>DRB 특약점 방문 (금성콘베어)</b></p><p style="color: rgb(112, 111, 114); font-weight: 400; letter-spacing: normal; text-transform: none;">체인 채택 이유 직접 청취 및 시장 접근 방향성 재검토</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2026년 5월 — NOW -->
-    <div class="tl-row">
-      <div class="t-month">
-        <span class="t-yr" style="color:var(--red);font-weight:800">NOW</span>
-        <span class="t-num now">05</span>
-      </div>
-      <div class="t-axis">
-        <div class="t-dot on"></div>
-        <div class="t-line"></div>
-      </div>
-      <div class="t-content">
-        <div class="t-card now-card ph" style="color: rgb(227, 29, 56);">
-          <div class="now-badge"><span class="now-pulse"></span>진행 중</div>
-          <h4><div class="t-tag" style="color: rgb(153, 153, 153);"><span style="font-size: 14px; color: rgb(0, 0, 0);">BIZ DAY</span></div><p style="color: rgb(227, 29, 56); font-weight: 400;"><b>팀C2B 진행사항 공유</b></p><div style="font-weight: 400; font-size: 13px; color: rgb(112, 111, 114); line-height: 22.1px;">하반기 진행방향 및 계획 수립</div></h4>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /tl -->
-</div><!-- /main -->
+  </div>
+</div>
 
 <script>
 function tog(){
@@ -319,6 +281,5 @@ function tog(){
   s.classList.toggle('closed');m.classList.toggle('exp');b.classList.toggle('sh');
 }
 </script>
-
 
 </body></html>
